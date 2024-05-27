@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,9 +7,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  name  String?
+  email String  @unique
 
- model User {
-   id    Int     @id @default(autoincrement())
-   email String  @unique
-   name  String?
- }
+  // Auth
+  auth UserAuth?
+}
+
+model UserAuth {
+  id   Int  @id @default(autoincrement())
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int @unique
+
+  login String
+  password String
+}
+
+model Ticket {
+  id   Int  @id @default(autoincrement())
+  tipo TipoTicket
+  motivo String
+  descricao String
+  // cliente
+  // veiculo
+  dataAbertura DateTime @default(now())
+  prazo DateTime
+  status StatusTicket @default(PARADO)
+}
+
+model Veiculo {
+  id   Int  @id @default(autoincrement())
+  
+
+}
+
+enum StatusTicket {
+  PARADO
+  PROGRESSO
+  CONCLUIDO
+}
+
+enum TipoTicket {
+  OPERACIONAL
+  SUPORTE
+  RELACIONAMENTO
+  VENDAS
+}
