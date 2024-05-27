@@ -20,9 +20,6 @@ export class UserData {
   @IsOptional()
   avatarUrl?: string | null;
 
-  constructor(partial: Partial<UserData>) {
-    Object.assign(this, partial);
-  }
 }
 
 export class UserEntity extends UserData {

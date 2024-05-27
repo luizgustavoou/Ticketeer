@@ -1,8 +1,8 @@
 import { IsString, IsInt, IsDate, MinLength, IsIn } from "class-validator";
 
-export const StateTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
+export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
-export type StateTicket = (typeof StateTicketValues)[number];
+export type StatusTicket = (typeof StatusTicketValues)[number];
 
 export const TipoTicketValues = [
   "OPERACIONAL",
@@ -31,12 +31,8 @@ export class TicketData {
   @IsDate()
   prazo!: string;
 
-  @IsIn(StateTicketValues)
-  state!: StateTicket;
-
-  constructor(partial: Partial<TicketData>) {
-    Object.assign(this, partial);
-  }
+  @IsIn(StatusTicketValues)
+  status!: StatusTicket;
 }
 
 export class TicketEntity extends TicketData {
