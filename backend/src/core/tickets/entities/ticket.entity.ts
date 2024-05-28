@@ -1,4 +1,11 @@
-import { IsString, IsInt, IsDate, MinLength, IsIn, IsDateString } from "class-validator";
+import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
+import {
+  IsString,
+  IsInt,
+  IsDate,
+  MinLength,
+  IsIn,
+} from "class-validator";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -14,23 +21,31 @@ export const TipoTicketValues = [
 export type TipoTicket = (typeof TipoTicketValues)[number];
 
 export class TicketData {
+  @Expose()
   @IsIn(TipoTicketValues)
   tipo!: TipoTicket;
 
+  @Expose()
   @IsString()
   @MinLength(5)
   motivo!: string;
 
+  @Expose()
   @IsString()
   @MinLength(10)
   descricao!: string;
 
-  @IsDateString()
-  dataAbertura!: string;
+  @Expose()
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
+  dataAbertura!: Date;
 
-  @IsDateString()
-  prazo!: string;
+  @Expose()
+  @Transform(({ value }) => new Date(value))
+  @IsDate()
+  prazo!: Date;
 
+  @Expose()
   @IsIn(StatusTicketValues)
   status!: StatusTicket;
 }

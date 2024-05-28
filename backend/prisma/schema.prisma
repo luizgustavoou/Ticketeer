@@ -11,39 +11,40 @@ model Usuario {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  name  String?
-  email String  @unique
+
+  nome    String
+  email   String   @unique
+  tickets Ticket[]
 
   // Auth
   auth UserAuth?
 }
 
 model UserAuth {
-  id   Int  @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
-  usuarioId Int @unique
+  usuarioId Int     @unique
 
-  login String
+  login    String
   password String
 }
 
 model Ticket {
-  id   Int  @id @default(autoincrement())
-  tipo TipoTicket
-  motivo String
-  descricao String
+  id           Int          @id @default(autoincrement())
+  tipo         TipoTicket
+  motivo       String
+  descricao    String
   // cliente
   // veiculo
-  dataAbertura DateTime @default(now())
-  prazo DateTime
-  status StatusTicket @default(PARADO)
+  dataAbertura DateTime     @default(now())
+  prazo        DateTime
+  status       StatusTicket @default(PARADO)
+  Usuario      Usuario?     @relation(fields: [usuarioId], references: [id])
+  usuarioId    Int
 }
 
 model Veiculo {
-  id   Int  @id @default(autoincrement())
-  
-
+  id Int @id @default(autoincrement())
 }
 
 enum StatusTicket {

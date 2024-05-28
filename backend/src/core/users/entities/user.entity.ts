@@ -11,15 +11,10 @@ import {
 export class UserData {
   @IsString()
   @MinLength(3)
-  name!: string;
+  nome!: string;
 
   @IsEmail()
   email!: string;
-
-  @IsUrl()
-  @IsOptional()
-  avatarUrl?: string | null;
-
 }
 
 export class UserEntity extends UserData {
@@ -27,8 +22,8 @@ export class UserEntity extends UserData {
   id!: number;
 
   @IsDate()
-  createdAt!: string;
+  createdAt!: Date;
 
   @IsDate()
-  updatedAt!: string;
+  updatedAt!: Date;
 }
