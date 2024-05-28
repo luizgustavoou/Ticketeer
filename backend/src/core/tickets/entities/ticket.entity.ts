@@ -1,4 +1,4 @@
-import { IsString, IsInt, IsDate, MinLength, IsIn } from "class-validator";
+import { IsString, IsInt, IsDate, MinLength, IsIn, IsDateString } from "class-validator";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -25,10 +25,10 @@ export class TicketData {
   @MinLength(10)
   descricao!: string;
 
-  @IsDate()
+  @IsDateString()
   dataAbertura!: string;
 
-  @IsDate()
+  @IsDateString()
   prazo!: string;
 
   @IsIn(StatusTicketValues)
