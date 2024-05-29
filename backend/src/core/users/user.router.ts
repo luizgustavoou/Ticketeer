@@ -8,20 +8,20 @@ export class UserRouter {
   constructor() {
     this.router = Router();
 
-    this.router.get("/:id", async (req, res) => {
-      await userController.findOneById(req, res);
+    this.router.get("/:id", async (req, res, next) => {
+      await userController.findOneById(req, res, next);
     });
 
-    this.router.get("/", async (req, res) => {
-      await userController.findMany(req, res);
+    this.router.get("/", async (req, res, next) => {
+      await userController.findMany(req, res, next);
     });
 
-    this.router.post("/", createUserValidator, async (req, res) => {
-      await userController.create(req, res);
+    this.router.post("/", createUserValidator, async (req, res, next) => {
+      await userController.create(req, res, next);
     });
 
-    this.router.put("/:id", createUserValidator, async (req, res) => {
-      await userController.update(req, res);
+    this.router.put("/:id", createUserValidator, async (req, res, next) => {
+      await userController.update(req, res, next);
     });
   }
 

@@ -8,20 +8,20 @@ export class TicketRouter {
   constructor() {
     this.router = Router();
 
-    this.router.get("/:id", async (req, res) => {
-      await ticketController.findOneById(req, res);
+    this.router.get("/:id", async (req, res, next) => {
+      await ticketController.findOneById(req, res, next);
     });
 
-    this.router.get("/", async (req, res) => {
-      await ticketController.findMany(req, res);
+    this.router.get("/", async (req, res, next) => {
+      await ticketController.findMany(req, res, next);
     });
 
-    this.router.post("/", createTicketValidator, async (req, res) => {
-      await ticketController.create(req, res);
+    this.router.post("/", createTicketValidator, async (req, res, next) => {
+      await ticketController.create(req, res, next);
     });
 
-    this.router.put("/:id", createTicketValidator, async (req, res) => {
-      await ticketController.update(req, res);
+    this.router.put("/:id", createTicketValidator, async (req, res, next) => {
+      await ticketController.update(req, res, next);
     });
   }
 
