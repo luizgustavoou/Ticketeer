@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
 
 import { plainToClass } from "class-transformer";
-import { UserRepository } from "./user.repository";
 import { UserData } from "./entities/user.entity";
+import { UserService } from "./user.service";
 
 export class UserControllerImpl {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userService: UserService) {}
 
   async findMany(req: Request, res: Response) {
-    const output = await this.userRepository.findMany();
+    const output = await this.userService.findMany();
 
     return res.status(200).send(output);
   }
   async findOneById(req: Request, res: Response) {
     const { id } = req.params;
 
-    const output = await this.userRepository.findOneById(+id);
+    const output = await this.userService.findOneById(+id);
 
     return res.status(200).send(output);
   }
@@ -25,7 +25,7 @@ export class UserControllerImpl {
       excludeExtraneousValues: true,
     });
 
-    const output = await this.userRepository.create(userDTO);
+    const output = await this.userService.create(userDTO);
 
     res.status(201).send(output);
   }
@@ -37,7 +37,7 @@ export class UserControllerImpl {
       excludeExtraneousValues: true,
     });
 
-    const output = await this.userRepository.update(+id, userDTO);
+    const output = await this.userService.update(+id, userDTO);
 
     return res.status(201).send(output);
   }

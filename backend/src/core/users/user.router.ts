@@ -20,7 +20,7 @@ export class UserRouter {
       await userController.create(req, res);
     });
 
-    this.router.put("/", createUserValidator, async (req, res) => {
+    this.router.put("/:id", createUserValidator, async (req, res) => {
       await userController.update(req, res);
     });
   }
