@@ -14,4 +14,4 @@ const userService: UserService = new UserServiceImpl(userRepository);
 
 const userController = new UserControllerImpl(userService);
 
-export { userRouter, userController };
+export { userRouter, userRepository, userController };

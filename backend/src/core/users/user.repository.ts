@@ -4,6 +4,7 @@ import { UserData, UserEntity } from "./entities/user.entity";
 export abstract class UserRepository {
   abstract findMany(): Promise<UserEntity[]>;
   abstract findOneById(id: number): Promise<UserEntity>;
+  abstract findOneByEmail(email: string): Promise<UserEntity>;
   abstract create(data: UserData): Promise<UserEntity>;
   abstract update(id: number, data: Partial<UserData>): Promise<UserEntity>;
 }
@@ -25,6 +26,17 @@ export class UserRepositoryImpl implements UserRepository {
 
     return output;
   }
+
+  async findOneByEmail(email: string): Promise<UserEntity> {
+    const output = await this.prisma.usuario.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    return output as any;
+  }
+
   async create(data: UserData): Promise<UserEntity> {
     const output = await this.prisma.usuario.create({
       data,
