@@ -2,6 +2,7 @@ import { Router } from "express";
 import { createTicketValidator } from "./middlewares/ticket-validator.middleware";
 import { ticketController } from ".";
 import { authMiddleware } from "../../commons/middlewares";
+import { AuthorizationRoleMiddleware } from "../../commons/middlewares/authorization-role-middleware";
 
 export class TicketRouter {
   private router: Router;
@@ -46,6 +47,9 @@ export class TicketRouter {
     this.router.delete(
       "/:id",
       authMiddleware.execute.bind(authMiddleware),
+      (req, res, next) => {
+        new AuthorizationRoleMiddleware("ADMIN").execute(req, res, next);
+      },
       async (req, res, next) => {
         await ticketController.delete(req, res, next);
       }

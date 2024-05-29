@@ -3,11 +3,14 @@ import {
   IsString,
   IsInt,
   IsEmail,
-  IsUrl,
   IsDate,
-  IsOptional,
   MinLength,
+  IsIn,
 } from "class-validator";
+
+export const RoleValues = ["ADMIN", "ATENDENTE"] as const;
+
+export type Roles = (typeof RoleValues)[number];
 
 export class UserData {
   @Expose()
@@ -26,6 +29,10 @@ export class UserData {
   @Expose()
   @MinLength(5)
   password!: string;
+
+  @Expose()
+  @IsIn(RoleValues)
+  role!: Roles;
 }
 
 export class UserEntity extends UserData {

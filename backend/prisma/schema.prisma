@@ -19,6 +19,13 @@ model Usuario {
   // Auth
   login    String
   password String
+
+  role Role
+}
+
+enum Role {
+  ADMIN
+  ATENDENTE
 }
 
 model Ticket {

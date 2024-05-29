@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
 import { plainToClass } from "class-transformer";
-import { UserData } from "./entities/user.entity";
 import { AuthService } from "./auth.service";
 import { SigninDTO } from "./middlewares/signin-validator.middleware";
 import { StatusCodes } from "http-status-codes";
+import { UserData } from "../users/entities/user.entity";
 
 export class AuthControllerImpl {
   constructor(private readonly authService: AuthService) {}
