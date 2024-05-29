@@ -1,11 +1,5 @@
 import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
-import {
-  IsString,
-  IsInt,
-  IsDate,
-  MinLength,
-  IsIn,
-} from "class-validator";
+import { IsString, IsInt, IsDate, MinLength, IsIn } from "class-validator";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -48,9 +42,14 @@ export class TicketData {
   @Expose()
   @IsIn(StatusTicketValues)
   status!: StatusTicket;
+
+  @Expose()
+  @IsInt()
+  usuarioId!: number;
 }
 
 export class TicketEntity extends TicketData {
+  @Expose()
   @IsInt()
   id!: number;
 }

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createTicketValidator } from "./middlewares/ticket-validator.middleware";
 import { TicketData } from "./entities/ticket.entity";
+import { ticketController } from ".";
 
 export class TicketRouter {
   private router: Router;
@@ -12,17 +13,8 @@ export class TicketRouter {
       res.send("Im ticket router!");
     });
 
-    this.router.post("/", createTicketValidator, (req, res) => {
-      const ticket = new TicketData();
-
-      ticket.tipo = req.body.tipo;
-      ticket.motivo = req.body.motivo;
-      ticket.descricao = req.body.descricao;
-      ticket.dataAbertura = req.body.dataAbertura;
-      ticket.prazo = req.body.prazo;
-      ticket.status = req.body.status;
-
-      res.status(201).send(ticket);
+    this.router.post("/", createTicketValidator, async (req, res) => {
+      await ticketController.create(req, res);
     });
   }
 
