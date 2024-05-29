@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { plainToClass } from "class-transformer";
 import { UserData } from "./entities/user.entity";
 import { UserService } from "./user.service";
+import { StatusCodes } from "http-status-codes";
 
 export class UserControllerImpl {
   constructor(private readonly userService: UserService) {}
@@ -11,7 +12,7 @@ export class UserControllerImpl {
     try {
       const output = await this.userService.findMany();
 
-      return res.status(200).send(output);
+      return res.status(StatusCodes.OK).send(output);
     } catch (error) {
       return next(error);
     }
@@ -22,7 +23,7 @@ export class UserControllerImpl {
 
       const output = await this.userService.findOneById(+id);
 
-      return res.status(200).send(output);
+      return res.status(StatusCodes.OK).send(output);
     } catch (error) {
       return next(error);
     }
@@ -36,7 +37,7 @@ export class UserControllerImpl {
 
       const output = await this.userService.create(userDTO);
 
-      res.status(201).send(output);
+      res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
       return next(error);
     }
@@ -52,7 +53,7 @@ export class UserControllerImpl {
 
       const output = await this.userService.update(+id, userDTO);
 
-      return res.status(201).send(output);
+      return res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
       return next(error);
     }

@@ -6,6 +6,7 @@ export abstract class TicketRepository {
   abstract findOneById(id: number): Promise<TicketEntity>;
   abstract create(data: TicketData): Promise<TicketEntity>;
   abstract update(id: number, data: Partial<TicketData>): Promise<TicketEntity>;
+  abstract delete(id: number): Promise<TicketEntity>;
 }
 
 export class TicketRepositoryImpl implements TicketRepository {
@@ -17,13 +18,13 @@ export class TicketRepositoryImpl implements TicketRepository {
     return output;
   }
   async findOneById(id: number): Promise<TicketEntity> {
-    const output = await this.prisma.ticket.findUniqueOrThrow({
+    const output = await this.prisma.ticket.findUnique({
       where: {
         id,
       },
     });
 
-    return output;
+    return output as any;
   }
   async create(data: TicketData): Promise<TicketEntity> {
     const output = await this.prisma.ticket.create({
@@ -35,6 +36,16 @@ export class TicketRepositoryImpl implements TicketRepository {
   async update(id: number, data: Partial<TicketData>): Promise<TicketEntity> {
     const output = await this.prisma.ticket.update({
       data,
+      where: {
+        id,
+      },
+    });
+
+    return output;
+  }
+
+  async delete(id: number): Promise<TicketEntity> {
+    const output = await this.prisma.ticket.delete({
       where: {
         id,
       },

@@ -42,6 +42,14 @@ export class TicketRouter {
         await ticketController.update(req, res, next);
       }
     );
+
+    this.router.delete(
+      "/:id",
+      authMiddleware.execute.bind(authMiddleware),
+      async (req, res, next) => {
+        await ticketController.delete(req, res, next);
+      }
+    );
   }
 
   getRouter(): Router {

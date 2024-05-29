@@ -4,6 +4,7 @@ import { plainToClass } from "class-transformer";
 import { UserData } from "./entities/user.entity";
 import { AuthService } from "./auth.service";
 import { SigninDTO } from "./middlewares/signin-validator.middleware";
+import { StatusCodes } from "http-status-codes";
 
 export class AuthControllerImpl {
   constructor(private readonly authService: AuthService) {}
@@ -16,7 +17,7 @@ export class AuthControllerImpl {
 
       const output = await this.authService.signup(userDTO);
 
-      res.status(201).send(output);
+      res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
       return next(error);
     }
@@ -33,7 +34,7 @@ export class AuthControllerImpl {
         signinDTO.password
       );
 
-      res.status(201).send(output);
+      res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
       return next(error);
     }
