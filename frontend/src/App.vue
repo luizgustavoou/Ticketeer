@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
+// Vue imports
+import { RouterView } from "vue-router";
+
+// Shadcn-vue components
+import Toaster from "@/components/ui/toast/Toaster.vue";
 </script>
 
 <template>
-  <div>
-    <Button> Hello! </Button>
+  <div class="min-h-screen flex flex-col">
+    <!-- <RouterView name="Navbar" /> -->
+    <RouterView />
+    <!-- <Toaster /> -->
   </div>
 </template>
 

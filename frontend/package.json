@@ -9,13 +9,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "jwt-decode": "^4.0.0",
+    "jwt-service": "^10.1.0",
     "lucide-vue-next": "^0.379.0",
+    "pinia": "^2.1.7",
     "radix-vue": "^1.8.2",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",

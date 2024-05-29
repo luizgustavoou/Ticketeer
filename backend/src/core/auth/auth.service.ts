@@ -1,7 +1,7 @@
 import { ConflictError } from "../../exceptions/conflict-error";
 import { UserRepository } from "../users/user.repository";
 import { AuthRepository } from "./auth.repository";
-import { UserData, UserEntity } from "./entities/user.entity";
+import { UserData, UserEntity } from "../users/entities/user.entity";
 import { JwtService } from "../../infra/services/jwt.service";
 import { CryptService } from "../../infra/services/crypt.service";
 import { NotFoundError } from "../../exceptions/not-found-error";
@@ -13,8 +13,8 @@ export abstract class AuthService {
 }
 
 export interface ResponseSignIn {
-  _id: number;
-  token: string;
+  id: number;
+  accessToken: string;
 }
 
 export class AuthServiceImpl implements AuthService {
@@ -41,8 +41,8 @@ export class AuthServiceImpl implements AuthService {
     const { token } = this.getTokens(user.id);
 
     return {
-      _id: user.id,
-      token,
+      id: user.id,
+      accessToken: token,
     };
   }
 
