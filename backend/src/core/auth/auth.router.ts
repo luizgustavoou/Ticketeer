@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { createUserValidator } from "./middlewares/user-validator.middleware";
+
 import { authController } from ".";
 import { signinAuthValidator } from "./middlewares/signin-validator.middleware";
+import { createUserValidator } from "../users/middlewares/user-validator.middleware";
 
 export class AuthRouter {
   private router: Router;
