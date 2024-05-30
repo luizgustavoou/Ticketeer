@@ -30,7 +30,7 @@ export class AuthControllerImpl {
       });
 
       const output = await this.authService.signin(
-        signinDTO.login,
+        signinDTO.email,
         signinDTO.password
       );
 

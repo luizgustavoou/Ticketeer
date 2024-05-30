@@ -1,12 +1,11 @@
-import { MinLength, validateOrReject } from "class-validator";
+import { IsEmail, MinLength, validateOrReject } from "class-validator";
 import { Response, Request, NextFunction } from "express";
-import { UserData } from "../entities/user.entity";
 import { Expose, plainToClass } from "class-transformer";
 
 export class SigninDTO {
   @Expose()
-  @MinLength(5)
-  login!: string;
+  @IsEmail()
+  email!: string;
 
   @Expose()
   @MinLength(5)

@@ -40,6 +40,7 @@ export const useAuthStore = defineStore("auth", () => {
     try {
       const res = await authService.signin(login, password);
 
+      console.log({res})
       const decoded: JwtDecoded = jwtService.decode(res.accessToken);
 
       storageService.setItem("accessToken", res.accessToken);

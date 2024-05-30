@@ -9,11 +9,12 @@ import { UnauthorizedError } from "../../exceptions/unathorized-error";
 
 export abstract class AuthService {
   abstract signup(data: UserData): Promise<UserEntity>;
-  abstract signin(login: string, password: string): Promise<ResponseSignIn>;
+  abstract signin(email: string, password: string): Promise<ResponseSignIn>;
 }
 
 export interface ResponseSignIn {
   id: number;
+  email: string;
   accessToken: string;
 }
 
@@ -25,8 +26,8 @@ export class AuthServiceImpl implements AuthService {
     private readonly cryptService: CryptService
   ) {}
 
-  async signin(login: string, password: string): Promise<ResponseSignIn> {
-    const user = await this.userRepository.findOneByLogin(login);
+  async signin(email: string, password: string): Promise<ResponseSignIn> {
+    const user = await this.userRepository.findOneByEmail(email);
 
     if (!user) {
       throw new NotFoundError("Usuário não encontrado.");
@@ -38,10 +39,11 @@ export class AuthServiceImpl implements AuthService {
       throw new UnauthorizedError("Senha incorreta.");
     }
 
-    const { token } = this.getTokens(user.id);
+    const { token } = this.generateToken({ sub: user.id, email: user.email });
 
     return {
       id: user.id,
+      email: user.email,
       accessToken: token,
     };
   }
@@ -61,7 +63,7 @@ export class AuthServiceImpl implements AuthService {
     return output;
   }
 
-  private getTokens(payload: any) {
+  private generateToken(payload: any) {
     const token = this.jwtService.generateToken(payload);
 
     return {

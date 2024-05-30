@@ -1,6 +1,6 @@
 <template>
   <div class="flex-1 flex">
-    <div class="p-6 flex-1 flex flex-col justify-center items-center gap-4">
+    <div class="bg-[#F1F5F9] p-6 flex-1 flex flex-col justify-center items-center gap-4">
       <div>
         <header class="flex flex-col gap-2">
           <h1 class="text-2xl text-primary font-bold">Entre na sua conta</h1>
@@ -11,7 +11,7 @@
           </p>
         </header>
 
-        <form class="space-y-2" @submit="onSubmit">
+        <form class="mt-2 space-y-2" @submit="onSubmit">
           <FormField v-slot="{ componentField }" name="email">
             <FormItem>
               <FormControl>
@@ -19,6 +19,7 @@
                   type="text"
                   placeholder="E-mail"
                   v-bind="componentField"
+                  autocomplete="email"
                 />
               </FormControl>
               <FormMessage />
@@ -32,11 +33,31 @@
                   type="password"
                   placeholder="Senha"
                   v-bind="componentField"
+                  autocomplete="current-password"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           </FormField>
+
+          <div class="flex items-center justify-between">
+            <div class="space-x-2">
+              <Checkbox id="terms" />
+              <label
+                for="terms"
+                class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Mantenha-me conectado.
+              </label>
+            </div>
+
+            <RouterLink
+              class="text-primary border-b-2 border-primary"
+              :to="{ name: metadataRoutes.SIGNUP.name }"
+            >
+              Esqueci minha senha
+            </RouterLink>
+          </div>
 
           <Button class="mt-4 w-full" type="submit">Entrar</Button>
         </form>
@@ -45,14 +66,17 @@
 
     <div class="flex-1 flex justify-center items-center bg-primary">
       <img
-        class="w-max-full w-[400px] h-auto"
-        src="../assets/login-ilustration.png"
+        class="w-max-full w-[550px] h-auto"
+       :src="LoginIlustration"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+// Images
+import LoginIlustration from "@/assets/login-ilustration.png";
+
 // Zod
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
@@ -67,6 +91,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RouterLink, useRouter } from "vue-router";
+import { metadataRoutes } from "@/router/RoutesConfig";
+
+// Pinia store
+import { useAuthStore } from "@/stores/auth";
+
+const router = useRouter();
+
+const { signin } = useAuthStore();
 
 const formSchema = toTypedSchema(
   z.object({
@@ -79,12 +113,10 @@ const form = useForm({
   validationSchema: formSchema,
 });
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log("Form submitted!", values);
+const onSubmit = form.handleSubmit(async (values) => {
+  await signin(values.email, values.password);
+  router.push({ name: metadataRoutes.HOME.name });
 });
 </script>
 
 <style scoped></style>
-
-<!-- text-bg-muted : #0061A7 -->
-<!-- bg: #1169B0 -->

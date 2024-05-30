@@ -5,15 +5,15 @@ export class ExpiresInConstants {
 }
 
 export abstract class JwtService {
-  abstract generateToken(id: string): string;
+  abstract generateToken(paylaod: any): string;
   abstract verify(token: string): JwtPayload | string;
 }
 
 export class JwtServiceImpl implements JwtService {
   constructor(private jwtSecret: string) {}
 
-  generateToken(id: string): string {
-    return jwt.sign({ id }, this.jwtSecret, {
+  generateToken(payload: any): string {
+    return jwt.sign({ ...payload }, this.jwtSecret, {
       expiresIn: ExpiresInConstants.SEVEN_DAYS,
     });
   }

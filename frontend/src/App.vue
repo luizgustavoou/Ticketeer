@@ -8,7 +8,7 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
 
 <template>
   <div class="min-h-screen flex flex-col">
-    <!-- <RouterView name="Navbar" /> -->
+    <RouterView name="Navbar" />
     <RouterView />
     <!-- <Toaster /> -->
   </div>

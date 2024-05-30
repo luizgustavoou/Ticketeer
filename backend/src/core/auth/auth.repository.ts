@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { UserData, UserEntity } from "./entities/user.entity";
+import { UserData, UserEntity } from "../users/entities/user.entity";
 
 export abstract class AuthRepository {
   abstract signup(data: UserData): Promise<UserEntity>;

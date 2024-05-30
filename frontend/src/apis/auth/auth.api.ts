@@ -3,14 +3,14 @@ import { api } from "@/network/api";
 import { IAuthResponse } from "@/apis/auth/models/IAuthResponse";
 
 export interface IAuthApi {
-  signin(login: string, password: string): Promise<IAuthResponse>;
+  signin(email: string, password: string): Promise<IAuthResponse>;
   signup(data: IUserData): Promise<IUserEntity>;
 }
 
 export class AuthApiImpl implements IAuthApi {
-  async signin(login: string, password: string): Promise<IAuthResponse> {
-    const res = await api.post<IAuthResponse>("/auth/login", {
-      login,
+  async signin(email: string, password: string): Promise<IAuthResponse> {
+    const res = await api.post<IAuthResponse>("/auth/signin", {
+      email,
       password,
     });
 

@@ -2,8 +2,8 @@ import { jwtDecode } from "jwt-decode";
 
 export interface JwtDecoded {
   email: string;
-  iat: number;
   sub: number;
+  iat: number;
   exp: number;
 }
 

@@ -20,7 +20,7 @@ export class AuthMiddleware {
       const payload: any = this.jwtService.verify(token);
 
       (<any>req)["user"] = await this.userService.findOneById(
-        (<any>payload).id
+        (<any>payload).sub
       );
 
       next();
