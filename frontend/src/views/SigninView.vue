@@ -1,6 +1,54 @@
+<script setup lang="ts">
+// Images
+import LoginIlustration from "@/assets/login-ilustration.png";
+
+// Zod
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
+import * as z from "zod";
+
+// Shadcnvue components
+import { Button } from "@/components/ui/button";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RouterLink, useRouter } from "vue-router";
+import { metadataRoutes } from "@/router/RoutesConfig";
+
+// Pinia store
+import { useAuthStore } from "@/stores/auth";
+
+const router = useRouter();
+
+const { signin } = useAuthStore();
+
+const formSchema = toTypedSchema(
+  z.object({
+    email: z.string().min(5).email(),
+    password: z.string().min(5),
+  })
+);
+
+const form = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = form.handleSubmit(async (values) => {
+  await signin(values.email, values.password);
+  router.push({ name: metadataRoutes.HOME.name });
+});
+</script>
+
 <template>
   <div class="flex-1 flex">
-    <div class="bg-[#F1F5F9] p-6 flex-1 flex flex-col justify-center items-center gap-4">
+    <div
+      class="bg-[#F1F5F9] p-6 flex-1 flex flex-col justify-center items-center gap-4"
+    >
       <div>
         <header class="flex flex-col gap-2">
           <h1 class="text-2xl text-primary font-bold">Entre na sua conta</h1>
@@ -65,58 +113,9 @@
     </div>
 
     <div class="flex-1 flex justify-center items-center bg-primary">
-      <img
-        class="w-max-full w-[550px] h-auto"
-       :src="LoginIlustration"
-      />
+      <img class="w-max-full w-[550px] h-auto" :src="LoginIlustration" />
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-// Images
-import LoginIlustration from "@/assets/login-ilustration.png";
-
-// Zod
-import { toTypedSchema } from "@vee-validate/zod";
-import { useForm } from "vee-validate";
-import * as z from "zod";
-
-// Shadcnvue components
-import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RouterLink, useRouter } from "vue-router";
-import { metadataRoutes } from "@/router/RoutesConfig";
-
-// Pinia store
-import { useAuthStore } from "@/stores/auth";
-
-const router = useRouter();
-
-const { signin } = useAuthStore();
-
-const formSchema = toTypedSchema(
-  z.object({
-    email: z.string().min(5).email(),
-    password: z.string().min(5),
-  })
-);
-
-const form = useForm({
-  validationSchema: formSchema,
-});
-
-const onSubmit = form.handleSubmit(async (values) => {
-  await signin(values.email, values.password);
-  router.push({ name: metadataRoutes.HOME.name });
-});
-</script>
 
 <style scoped></style>
