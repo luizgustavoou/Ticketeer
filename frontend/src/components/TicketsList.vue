@@ -60,6 +60,11 @@ const ticketsTable = computed(() => {
 // watchEffect(async () => {
 //   await getTickets();
 // });
+
+const handleStringToInt = (value: string) => {
+  page.value = 1;
+  itemsPerPage.value = parseInt(value);
+};
 </script>
 
 <template>
@@ -159,7 +164,7 @@ const ticketsTable = computed(() => {
       {{ tickets.length }} registros
     </div>
 
-    <Select v-model="itemsPerPage">
+    <Select @update:model-value="(value) => handleStringToInt(value)">
       <SelectTrigger class="w-[70px]">
         <SelectValue placeholder="Selecione a quantidade" />
       </SelectTrigger>
@@ -168,7 +173,7 @@ const ticketsTable = computed(() => {
           <SelectLabel>Tickets por página</SelectLabel>
           <SelectItem
             v-for="value in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-            :value="value"
+            :value="value.toString()"
           >
             {{ value }}
           </SelectItem>
