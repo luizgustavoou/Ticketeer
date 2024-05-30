@@ -20,8 +20,8 @@ export class TicketRepositoryImpl implements TicketRepository {
       include: {
         motivo: true,
       },
-      skip,
-      take,
+      // skip,
+      // take,
     });
 
     return output;

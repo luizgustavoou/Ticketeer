@@ -8,8 +8,8 @@ import { ref } from "vue";
 export const useTicketsStore = defineStore("tickets", () => {
   const tickets = ref<ITicketEntity[]>([]);
 
-  async function getTickets() {
-    const res = await ticketsService.findMany();
+  async function getTickets(page: number = 1, take: number = 3) {
+    const res = await ticketsService.findMany(page, take);
 
     tickets.value = res;
   }

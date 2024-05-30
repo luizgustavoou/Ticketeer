@@ -149,7 +149,7 @@ function back() {
 </script>
 
 <template>
-  <div class="p-3 flex-1 bg-[#F1F5F9]">
+  <div class="p-6 flex-1 bg-[#F1F5F9]">
     <Sheet>
       <SheetTrigger as-child>
         <Button class="space-x-2" variant="default">

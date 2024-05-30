@@ -11,6 +11,8 @@ export class TicketControllerImpl {
     try {
       const { page = 1, take = 3 } = req.query;
 
+      console.log({ page, take });
+
       const skip = (+page - 1) * +take;
 
       const output = await this.ticketService.findMany(skip, +take);
