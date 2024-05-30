@@ -1,5 +1,12 @@
-import { Exclude, Expose, plainToClass, Transform } from "class-transformer";
-import { IsString, IsInt, IsDate, MinLength, IsIn } from "class-validator";
+import { Expose, Transform, Type } from "class-transformer";
+import {
+  IsString,
+  IsInt,
+  IsDate,
+  MinLength,
+  IsIn,
+  ValidateNested,
+} from "class-validator";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -14,15 +21,22 @@ export const TipoTicketValues = [
 
 export type TipoTicket = (typeof TipoTicketValues)[number];
 
+export class MotivoData {
+  @Expose()
+  @IsString()
+  descricao!: string;
+}
+
+export class MotivoEntity extends MotivoData {
+  @Expose()
+  @IsInt()
+  id!: number;
+}
+
 export class TicketData {
   @Expose()
   @IsIn(TipoTicketValues)
   tipo!: TipoTicket;
-
-  @Expose()
-  @IsString()
-  @MinLength(5)
-  motivo!: string;
 
   @Expose()
   @IsString()
@@ -48,7 +62,18 @@ export class TicketData {
   usuarioId!: number;
 }
 
-export class TicketEntity extends TicketData {
+export class InputTicketData extends TicketData {
+  @IsInt()
+  motivoId!: number;
+}
+
+export class OutputTicketData extends TicketData {
+  @ValidateNested()
+  @Type(() => MotivoEntity)
+  motivo!: MotivoEntity;
+}
+
+export class TicketEntity extends OutputTicketData {
   @Expose()
   @IsInt()
   id!: number;

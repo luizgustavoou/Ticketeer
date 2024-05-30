@@ -1,15 +1,16 @@
-import { NextFunction, Request, Response } from "express";
-import { InputTicketData } from "./entities/ticket.entity";
-import { plainToClass } from "class-transformer";
-import { TicketService } from "./ticket.service";
-import { StatusCodes } from "http-status-codes";
+import { Request, Response, NextFunction } from "express";
 
-export class TicketControllerImpl {
-  constructor(private readonly ticketService: TicketService) {}
+import { plainToClass } from "class-transformer";
+import { MotivosService } from "./motivos.service";
+import { StatusCodes } from "http-status-codes";
+import { MotivoData } from "../tickets/entities/ticket.entity";
+
+export class MotivosControllerImpl {
+  constructor(private readonly motivosService: MotivosService) {}
 
   async findMany(req: Request, res: Response, next: NextFunction) {
     try {
-      const output = await this.ticketService.findMany();
+      const output = await this.motivosService.findMany();
 
       return res.status(StatusCodes.OK).send(output);
     } catch (error) {
@@ -20,7 +21,7 @@ export class TicketControllerImpl {
     try {
       const { id } = req.params;
 
-      const output = await this.ticketService.findOneById(+id);
+      const output = await this.motivosService.findOneById(+id);
 
       return res.status(StatusCodes.OK).send(output);
     } catch (error) {
@@ -30,11 +31,11 @@ export class TicketControllerImpl {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const ticketDTO = plainToClass(InputTicketData, req.body, {
+      const MotivosDTO = plainToClass(MotivoData, req.body, {
         excludeExtraneousValues: true,
       });
 
-      const output = await this.ticketService.create(ticketDTO);
+      const output = await this.motivosService.create(MotivosDTO);
 
       res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
@@ -46,11 +47,11 @@ export class TicketControllerImpl {
     try {
       const { id } = req.params;
 
-      const ticketDTO = plainToClass(InputTicketData, req.body, {
+      const MotivosDTO = plainToClass(MotivoData, req.body, {
         excludeExtraneousValues: true,
       });
 
-      const output = await this.ticketService.update(+id, ticketDTO);
+      const output = await this.motivosService.update(+id, MotivosDTO);
 
       return res.status(StatusCodes.CREATED).send(output);
     } catch (error) {
@@ -62,7 +63,7 @@ export class TicketControllerImpl {
     try {
       const { id } = req.params;
 
-      const output = await this.ticketService.delete(+id);
+      const output = await this.motivosService.delete(+id);
 
       return res.status(StatusCodes.OK).send(output);
     } catch (error) {

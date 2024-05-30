@@ -1,11 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { TicketData, TicketEntity } from "./entities/ticket.entity";
+import { InputTicketData, TicketEntity } from "./entities/ticket.entity";
 
 export abstract class TicketRepository {
   abstract findMany(): Promise<TicketEntity[]>;
   abstract findOneById(id: number): Promise<TicketEntity>;
-  abstract create(data: TicketData): Promise<TicketEntity>;
-  abstract update(id: number, data: Partial<TicketData>): Promise<TicketEntity>;
+  abstract create(data: InputTicketData): Promise<TicketEntity>;
+  abstract update(
+    id: number,
+    data: Partial<InputTicketData>
+  ): Promise<TicketEntity>;
   abstract delete(id: number): Promise<TicketEntity>;
 }
 
@@ -13,7 +16,11 @@ export class TicketRepositoryImpl implements TicketRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   async findMany(): Promise<TicketEntity[]> {
-    const output = await this.prisma.ticket.findMany();
+    const output = await this.prisma.ticket.findMany({
+      include: {
+        motivo: true,
+      },
+    });
 
     return output;
   }
@@ -22,22 +29,34 @@ export class TicketRepositoryImpl implements TicketRepository {
       where: {
         id,
       },
+      include: {
+        motivo: true,
+      },
     });
 
     return output as any;
   }
-  async create(data: TicketData): Promise<TicketEntity> {
+  async create(data: InputTicketData): Promise<TicketEntity> {
     const output = await this.prisma.ticket.create({
       data,
+      include: {
+        motivo: true,
+      },
     });
 
     return output;
   }
-  async update(id: number, data: Partial<TicketData>): Promise<TicketEntity> {
+  async update(
+    id: number,
+    data: Partial<InputTicketData>
+  ): Promise<TicketEntity> {
     const output = await this.prisma.ticket.update({
       data,
       where: {
         id,
+      },
+      include: {
+        motivo: true,
       },
     });
 
@@ -48,6 +67,9 @@ export class TicketRepositoryImpl implements TicketRepository {
     const output = await this.prisma.ticket.delete({
       where: {
         id,
+      },
+      include: {
+        motivo: true,
       },
     });
 

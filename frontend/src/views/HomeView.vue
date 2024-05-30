@@ -12,14 +12,40 @@
           <SheetDescription> Formulário de cadastro </SheetDescription>
           <SheetTitle>Novo atendimento ao cliente</SheetTitle>
         </SheetHeader>
-        <div class="grid gap-4 py-4">
-          <div class="grid grid-cols-4 items-center gap-4">
-            <Label for="name" class="text-right"> Name </Label>
-            <Input id="name" value="Pedro Duarte" class="col-span-3" />
-          </div>
-          <div class="grid grid-cols-4 items-center gap-4">
-            <Label for="username" class="text-right"> Username </Label>
-            <Input id="username" value="@peduarte" class="col-span-3" />
+        <div class="flex flex-col gap-3">
+          <nav class="list-none flex gap-3">
+            <li
+              class="tracking-wide text-[#6B7280] pb-3 border-b-[2px] border-primary"
+            >
+              CONTATO
+            </li>
+            <li
+              class="tracking-wide text-[#6B7280] pb-3 border-b-[2px] border-primary"
+            >
+              TICKET
+            </li>
+            <li
+              class="tracking-wide text-[#6B7280] pb-3 border-b-[2px] border-primary"
+            >
+              MOTIVO
+            </li>
+          </nav>
+          <div>
+            <p>Houve contato passivo?</p>
+            <RadioGroup default-value="comfortable">
+              <div class="flex items-center space-x-2">
+                <RadioGroupItem id="r1" value="default" />
+                <Label for="r1">Default</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <RadioGroupItem id="r2" value="comfortable" />
+                <Label for="r2">Comfortable</Label>
+              </div>
+              <div class="flex items-center space-x-2">
+                <RadioGroupItem id="r3" value="compact" />
+                <Label for="r3">Compact</Label>
+              </div>
+            </RadioGroup>
           </div>
         </div>
         <SheetFooter>
@@ -48,6 +74,8 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 </script>
 
 <style scoped></style>

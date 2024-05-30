@@ -1,12 +1,15 @@
 import { NotFoundError } from "../../exceptions/not-found-error";
-import { TicketData, TicketEntity } from "./entities/ticket.entity";
+import { InputTicketData, TicketEntity } from "./entities/ticket.entity";
 import { TicketRepository } from "./ticket.repository";
 
 export abstract class TicketService {
   abstract findMany(): Promise<TicketEntity[]>;
   abstract findOneById(id: number): Promise<TicketEntity>;
-  abstract create(data: TicketData): Promise<TicketEntity>;
-  abstract update(id: number, data: Partial<TicketData>): Promise<TicketEntity>;
+  abstract create(data: InputTicketData): Promise<TicketEntity>;
+  abstract update(
+    id: number,
+    data: Partial<InputTicketData>
+  ): Promise<TicketEntity>;
   abstract delete(id: number): Promise<TicketEntity>;
 }
 
@@ -23,12 +26,15 @@ export class TicketServiceImpl implements TicketService {
 
     return output;
   }
-  async create(data: TicketData): Promise<TicketEntity> {
+  async create(data: InputTicketData): Promise<TicketEntity> {
     const output = await this.ticketRepository.create(data);
 
     return output;
   }
-  async update(id: number, data: Partial<TicketData>): Promise<TicketEntity> {
+  async update(
+    id: number,
+    data: Partial<InputTicketData>
+  ): Promise<TicketEntity> {
     const output = await this.ticketRepository.update(id, data);
 
     return output;

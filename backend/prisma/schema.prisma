@@ -31,7 +31,8 @@ enum Role {
 model Ticket {
   id           Int          @id @default(autoincrement())
   tipo         TipoTicket
-  motivo       String
+  motivo       Motivo       @relation(fields: [motivoId], references: [id])
+  motivoId     Int
   descricao    String
   // cliente
   // veiculo
@@ -40,6 +41,12 @@ model Ticket {
   status       StatusTicket @default(PARADO)
   Usuario      Usuario?     @relation(fields: [usuarioId], references: [id])
   usuarioId    Int
+}
+
+model Motivo {
+  id        Int      @id @default(autoincrement())
+  descricao String
+  Ticket    Ticket[]
 }
 
 model Veiculo {

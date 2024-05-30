@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 // express
 import express from "express";
 
