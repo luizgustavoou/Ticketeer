@@ -49,6 +49,9 @@ const page = ref(1);
 const skip = computed(() => {
   return (page.value - 1) * itemsPerPage.value;
 });
+const ticketsTable = computed(() => {
+  return tickets.value.slice(skip.value, skip.value + itemsPerPage.value);
+});
 
 // const getTickets = useDebounceFn(async (page: number = 1, take: number = 3) => {
 //   await ticketsStore.getTickets(page, take);
@@ -78,7 +81,7 @@ const skip = computed(() => {
     <TableBody>
       <TableRow
         class="bg-white hover:bg-white"
-        v-for="ticket in tickets.slice(skip, skip + itemsPerPage)"
+        v-for="ticket in ticketsTable"
         :key="ticket.id"
       >
         <TableCell class="font-medium">
@@ -151,7 +154,10 @@ const skip = computed(() => {
       </PaginationList>
     </Pagination>
 
-    <div>Exibindo 3 de 3 do total de 3 registros</div>
+    <div>
+      Exibindo {{ ticketsTable.length }} de {{ itemsPerPage }} do total de
+      {{ tickets.length }} registros
+    </div>
 
     <Select v-model="itemsPerPage">
       <SelectTrigger class="w-[70px]">
