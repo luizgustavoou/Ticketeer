@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="text-primary-foreground flex justify-between items-center bg-primary p-4"
+    class="r text-primary-foreground flex justify-between items-center bg-primary p-4"
   >
     <header>
       <img class="max-h-full" :src="Logo" alt="Logo" />
