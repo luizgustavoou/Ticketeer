@@ -22,7 +22,9 @@ import { metadataRoutes } from "@/router/RoutesConfig";
 
 // Pinia store
 import { useAuthStore } from "@/stores/auth";
+import { useToast } from "@/components/ui/toast";
 
+const { toast, dismiss } = useToast();
 const router = useRouter();
 
 const { signin } = useAuthStore();
@@ -51,8 +53,21 @@ const form = useForm({
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
-  await signin(values.email, values.password);
-  router.push({ name: metadataRoutes.HOME.name });
+  try {
+    await signin(values.email, values.password);
+    router.push({ name: metadataRoutes.HOME.name });
+
+    form.resetForm();
+  } catch (error) {
+    toast({
+      title: "Erro ao efetuar login.",
+      description:
+        error?.message ||
+        "Erro desconhecido, por favor contatar os desenvolvedores.",
+      variant: "default",
+      duration: 1000,
+    });
+  }
 });
 </script>
 

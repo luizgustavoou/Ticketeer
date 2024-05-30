@@ -1,13 +1,13 @@
 <script setup lang="ts">
 // Icons
-import { ArrowLeft, ArrowRight, Check, Plus, Search } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, Check, Plus } from "lucide-vue-next";
 
 // App components
 import MotivoFields from "@/components/MotivoFields.vue";
 import ContatoFields from "@/components/ContatoFields.vue";
 import TicketFields from "@/components/TicketFields.vue";
 
-// Shadcn-vue
+// Shadcn-vue components
 import Button from "@/components/ui/button/Button.vue";
 import {
   Sheet,
@@ -16,18 +16,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
-  SheetFooter,
 } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { useToast } from "@/components/ui/toast/use-toast";
 
 // Zod
 import { toTypedSchema } from "@vee-validate/zod";
@@ -36,21 +26,19 @@ import * as z from "zod";
 
 // Entities
 import { TipoTicketValues } from "@/entities/ITicket";
-import Textarea from "@/components/ui/textarea/Textarea.vue";
-import FormLabel from "@/components/ui/form/FormLabel.vue";
-import FormDescription from "@/components/ui/form/FormDescription.vue";
-import { computed, ref } from "vue";
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+// Vue imports
+import { ref } from "vue";
+
+// App Components
 import TicketsList from "@/components/TicketsList.vue";
+
+// Store pinia
+import { useTicketsStore } from "@/stores/tickets";
+
+const { toast, dismiss } = useToast();
+
+const ticketsStore = useTicketsStore();
 
 const formSchema = toTypedSchema(
   z.object({
@@ -78,8 +66,34 @@ const form = useForm({
   validationSchema: formSchema,
 });
 
-const onSubmit = form.handleSubmit((values) => {
-  console.log({ values });
+const onSubmit = form.handleSubmit(async (values) => {
+  try {
+    await ticketsStore.create({
+      ...values,
+      motivoId: +values.motivoId,
+    });
+
+    toast({
+      title: "Cadastrar ticket",
+      description: "Ticket cadastrado com sucesso!",
+      variant: "default",
+      duration: 1000,
+    });
+
+    form.resetForm();
+    indexFormField.value = 0;
+  } catch (error) {
+    
+    
+    toast({
+      title: "Erro ao cadastrar ticket",
+      description:
+        error?.message ||
+        "Erro desconhecido, por favor contatar os desenvolvedores.",
+      variant: "default",
+      duration: 1000,
+    });
+  }
 });
 
 interface FormFields {

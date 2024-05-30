@@ -34,11 +34,16 @@ export class TicketControllerImpl {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      const { id } = (req as any).user;
+
       const ticketDTO = plainToClass(InputTicketData, req.body, {
         excludeExtraneousValues: true,
       });
 
-      const output = await this.ticketService.create(ticketDTO);
+      const output = await this.ticketService.create({
+        ...ticketDTO,
+        usuarioId: id,
+      });
 
       res.status(StatusCodes.CREATED).send(output);
     } catch (error) {

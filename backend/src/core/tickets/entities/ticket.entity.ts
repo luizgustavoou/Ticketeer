@@ -63,10 +63,6 @@ export class TicketData {
   @Transform(({ value }) => value || StatusTicketValues[0])
   @IsIn(StatusTicketValues)
   status!: StatusTicket;
-
-  @Expose()
-  @IsInt()
-  usuarioId!: number;
 }
 
 
@@ -74,6 +70,10 @@ export class InputTicketData extends TicketData {
   @Expose()
   @IsInt()
   motivoId!: number;
+
+  @Expose()
+  @IsInt()
+  usuarioId!: number;
 }
 
 export class OutputTicketData extends TicketData {
