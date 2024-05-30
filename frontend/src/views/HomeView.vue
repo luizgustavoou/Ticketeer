@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Icons
-import { ArrowRight, Check, Plus, Search } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, Check, Plus, Search } from "lucide-vue-next";
 
 // App components
 import MotivoFields from "@/components/MotivoFields.vue";
@@ -52,56 +52,25 @@ import {
 } from "@/components/ui/table";
 import TicketsList from "@/components/TicketsList.vue";
 
-const invoices = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV002",
-    paymentStatus: "Pending",
-    totalAmount: "$150.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV003",
-    paymentStatus: "Unpaid",
-    totalAmount: "$350.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV004",
-    paymentStatus: "Paid",
-    totalAmount: "$450.00",
-    paymentMethod: "Credit Card",
-  },
-  {
-    invoice: "INV005",
-    paymentStatus: "Paid",
-    totalAmount: "$550.00",
-    paymentMethod: "PayPal",
-  },
-  {
-    invoice: "INV006",
-    paymentStatus: "Pending",
-    totalAmount: "$200.00",
-    paymentMethod: "Bank Transfer",
-  },
-  {
-    invoice: "INV007",
-    paymentStatus: "Unpaid",
-    totalAmount: "$300.00",
-    paymentMethod: "Credit Card",
-  },
-];
-
 const formSchema = toTypedSchema(
   z.object({
-    tipo: z.enum(TipoTicketValues),
-    motivoId: z.string().min(1),
-    descricao: z.string().min(5),
+    tipo: z.enum(TipoTicketValues, {
+      required_error: "Selecione um tipo de ticket",
+    }),
+    motivoId: z
+      .string({
+        required_error: "Selecione um motivo",
+      })
+      .min(1, {
+        message: "Selecione um motivo",
+      }),
+    descricao: z
+      .string({
+        required_error: "Descreva os detalhes",
+      })
+      .min(5, {
+        message: "A descrição deve ter no mínimo 5 caracteres",
+      }),
   })
 );
 
@@ -190,7 +159,8 @@ function back() {
                 class="flex space-x-2"
                 @click="back"
               >
-                <span>Voltar</span> <ArrowRight />
+                <ArrowLeft />
+                <span>Voltar</span>
               </Button>
 
               <Button

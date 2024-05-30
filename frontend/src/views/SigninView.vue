@@ -29,8 +29,20 @@ const { signin } = useAuthStore();
 
 const formSchema = toTypedSchema(
   z.object({
-    email: z.string().min(5).email(),
-    password: z.string().min(5),
+    email: z
+      .string({
+        required_error: "O e-mail é obrigatório",
+      })
+      .email({
+        message: "O e-mail informado é inválido",
+      }),
+    password: z
+      .string({
+        required_error: "A senha é obrigatória",
+      })
+      .min(5, {
+        message: "A senha deve ter no mínimo 5 caracteres",
+      }),
   })
 );
 
