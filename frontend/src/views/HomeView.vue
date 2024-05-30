@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Icons
-import { Plus } from "lucide-vue-next";
+import { Plus, Check } from "lucide-vue-next";
 
 // App components
 import TicketForm from "@/components/TicketForm.vue";
@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/sheet";
 import { useToast } from "@/components/ui/toast/use-toast";
 
-
 // Entities
 import { IInputTicketData } from "@/entities/ITicket";
 
@@ -30,7 +29,6 @@ import { useTicketsStore } from "@/stores/tickets";
 const { toast, dismiss } = useToast();
 
 const ticketsStore = useTicketsStore();
-
 
 async function handleSubmit(values: IInputTicketData) {
   try {
@@ -75,7 +73,9 @@ async function handleSubmit(values: IInputTicketData) {
         <div class="flex flex-col gap-3">
           <!-- {{ form.values }} -->
 
-          <TicketForm :handle-submit="handleSubmit" />
+          <TicketForm :handle-submit="handleSubmit">
+            <template #labelSubmit> <span>Cadastrar</span> <Check /> </template>
+          </TicketForm>
         </div>
       </SheetContent>
     </Sheet>

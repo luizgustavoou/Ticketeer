@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Icons
-import { ArrowLeft, ArrowRight, Check} from "lucide-vue-next";
+import { ArrowLeft, ArrowRight, Check } from "lucide-vue-next";
 
 // App components
 import MotivoFields from "@/components/MotivoFields.vue";
@@ -25,9 +25,8 @@ import {
 // Vue imports
 import { ref } from "vue";
 
-
 export interface ITicketFormProps {
-  Ticket?: ITicketEntity;
+  ticket?: ITicketEntity;
   clearFormAfterSubmit?: boolean;
   handleSubmit: (values: IInputTicketData) => Promise<void>;
 }
@@ -35,7 +34,6 @@ export interface ITicketFormProps {
 const props = withDefaults(defineProps<ITicketFormProps>(), {
   clearFormAfterSubmit: true,
 });
-
 
 const formSchema = toTypedSchema(
   z.object({
@@ -63,6 +61,12 @@ const form = useForm({
   validationSchema: formSchema,
 });
 
+form.setValues({
+  descricao: props.ticket?.descricao,
+  motivoId: props.ticket?.motivo.id.toString(),
+  tipo: props.ticket?.tipo,
+});
+
 const onSubmit = form.handleSubmit(async (values) => {
   await props.handleSubmit({
     ...values,
@@ -70,6 +74,7 @@ const onSubmit = form.handleSubmit(async (values) => {
   });
 
   if (props.clearFormAfterSubmit) {
+    console.log('oi')
     form.resetForm();
     indexFormField.value = 0;
   }
@@ -146,7 +151,7 @@ function back() {
         <span>Avançar</span> <ArrowRight />
       </Button>
       <Button type="submit" v-else class="ms-auto flex space-x-2">
-        <span>Cadastrar</span> <Check />
+        <slot name="labelSubmit"></slot>
       </Button>
     </div>
   </form>

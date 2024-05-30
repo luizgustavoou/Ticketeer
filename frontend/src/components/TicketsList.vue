@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// App components
+import TicketForm from "@/components/TicketForm.vue";
+
 // Shadcn-vue components
 import {
   Table,
@@ -41,14 +44,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/ui/toast/use-toast";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 // Pinia
 import { useTicketsStore } from "@/stores/tickets";
 import { storeToRefs } from "pinia";
 
 // Icons
-import { Pencil, Trash2 } from "lucide-vue-next";
+import { Pencil, Trash2, Check } from "lucide-vue-next";
+
+// Vue imports
 import { computed, ref, watchEffect } from "vue";
+
+// Vueuse
 import { useDebounceFn } from "@vueuse/core";
 
 const { toast, dismiss } = useToast();
@@ -73,6 +88,31 @@ const ticketsTable = computed(() => {
 // watchEffect(async () => {
 //   await getTickets();
 // });
+
+async function handleUpdate(idTicket: number, values: IInputTicketData) {
+  try {
+    await ticketsStore.update(idTicket, {
+      ...values,
+      motivoId: +values.motivoId,
+    });
+
+    toast({
+      title: "Atualizar ticket",
+      description: "Ticket atualizado com sucesso!",
+      variant: "default",
+      duration: 1000,
+    });
+  } catch (error) {
+    toast({
+      title: "Erro ao atualizar ticket",
+      description:
+        error?.message ||
+        "Erro desconhecido, por favor contatar os desenvolvedores.",
+      variant: "destructive",
+      duration: 1000,
+    });
+  }
+}
 
 const deleteTicket = async (id: number) => {
   try {
@@ -144,9 +184,33 @@ const handleStringToInt = (value: string) => {
           {{ ticket.prazo }}
         </TableCell>
         <TableCell>
-          <Button variant="ghost">
-            <Pencil />
-          </Button>
+          <Sheet>
+            <SheetTrigger as-child>
+              <Button variant="ghost">
+                <Pencil />
+              </Button>
+            </SheetTrigger>
+            <SheetContent>
+              <SheetHeader>
+                <SheetDescription> Formulário de cadastro </SheetDescription>
+                <SheetTitle>Novo atendimento ao cliente</SheetTitle>
+              </SheetHeader>
+              <div class="flex flex-col gap-3">
+                <!-- {{ form.values }} -->
+
+                <TicketForm
+                  :clear-form-after-submit="false"
+                  :ticket="ticket"
+                  :handle-submit="(values) => handleUpdate(ticket.id, values)"
+                >
+                  <template #labelSubmit>
+                    <span>Atualizar</span> <Check />
+                  </template>
+                </TicketForm>
+              </div>
+            </SheetContent>
+          </Sheet>
+
           <AlertDialog>
             <AlertDialogTrigger>
               <Button
