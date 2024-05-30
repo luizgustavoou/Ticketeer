@@ -53,6 +53,7 @@ export const useAuthStore = defineStore("auth", () => {
       throw error;
     }
   }
+  
 
   async function logout() {
     storageService.removeItem("accessToken");

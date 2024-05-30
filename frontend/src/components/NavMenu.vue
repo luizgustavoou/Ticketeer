@@ -1,3 +1,23 @@
+<script setup lang="ts">
+// iCONS
+import { Moon, User, RefreshCcw, Building, LogOut } from "lucide-vue-next";
+
+import Logo from "@/assets/Brand-logo-white.png";
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
+import { metadataRoutes } from "@/router/RoutesConfig";
+
+const router = useRouter();
+
+const { logout } = useAuthStore();
+
+const handleLogout = (_: MouseEvent) => {
+  logout();
+
+  router.push({ name: metadataRoutes.SIGNIN.name });
+};
+</script>
+
 <template>
   <nav
     class="r text-primary-foreground flex justify-between items-center bg-primary p-4"
@@ -23,15 +43,18 @@
       <li>
         <User />
       </li>
+      <li>
+        <a
+          href="#"
+          class="flex gap-2 text-lg text-white/70 hover:text-white"
+          @click="handleLogout"
+        >
+          <LogOut />
+          <span class="md:block hidden">Sair</span>
+        </a>
+      </li>
     </ul>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { Moon, User, RefreshCcw, Building } from "lucide-vue-next";
-
-import Logo from "@/assets/Brand-logo-white.png";
-import Teste from "@/assets/login-ilustration.png";
-</script>
 
 <style scoped></style>
