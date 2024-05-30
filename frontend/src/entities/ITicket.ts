@@ -1,4 +1,5 @@
 import { IVeiculoEntity } from "@/entities/IVeiculo";
+import { IContatoEntity } from "./IContato";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -29,11 +30,13 @@ export interface ITicketData {
 export interface IInputTicketData extends ITicketData {
   motivoId: number;
   veiculoId: number;
+  contatoId: number | null;
 }
 
 export interface IOutputTicketData extends ITicketData {
   motivo: IMotivoEntity;
   veiculo: IVeiculoEntity;
+  contato: IContatoEntity,
   dataAbertura: Date;
   prazo: Date;
   status: StatusTicket;

@@ -1,27 +1,61 @@
 <script setup lang="ts">
-// Icons
-import { Search } from "lucide-vue-next";
-
 // Shadcn-vue
-
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   FormControl,
   FormField,
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { IContatoEntity } from "@/entities/IContato";
+import { contatosService } from "@/services";
 
-// Entities
-import Textarea from "@/components/ui/textarea/Textarea.vue";
-import FormLabel from "@/components/ui/form/FormLabel.vue";
-import FormDescription from "@/components/ui/form/FormDescription.vue";
+// Vue imports
+import { onBeforeMount, ref } from "vue";
 
+const contatos = ref<IContatoEntity[]>([]);
+
+async function getVeiculos() {
+  const res = await contatosService.findMany();
+
+  contatos.value = res;
+}
+onBeforeMount(async () => {
+  await getVeiculos();
+});
 </script>
 
 <template>
   <div>
-    <h1>ContatoFields!</h1>
+    <FormField v-slot="{ componentField }" name="contatoId">
+      <FormItem>
+        <Select v-bind="componentField">
+          <FormControl>
+            <SelectTrigger>
+              <SelectValue placeholder="Tipo de contato" />
+            </SelectTrigger>
+          </FormControl>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem
+                v-for="contato in contatos"
+                :value="contato.id.toString()"
+              >
+                {{ contato.descricao }}
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <FormMessage />
+      </FormItem>
+    </FormField>
   </div>
 </template>
 

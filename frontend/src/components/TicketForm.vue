@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Icons
-import { ArrowLeft, ArrowRight, Check } from "lucide-vue-next";
+import { ArrowLeft, ArrowRight } from "lucide-vue-next";
 
 // App components
 import MotivoFields from "@/components/MotivoFields.vue";
@@ -37,6 +37,12 @@ const props = withDefaults(defineProps<ITicketFormProps>(), {
 
 const formSchema = toTypedSchema(
   z.object({
+    contatoId: z
+      .string({
+        required_error: "Selecione um contato",
+      })
+      .transform((e) => (e === "" ? null : e))
+      .nullable(),
     tipo: z.enum(TipoTicketValues, {
       required_error: "Selecione um tipo de ticket",
     }),
@@ -72,6 +78,8 @@ form.setValues({
   descricao: props.ticket?.descricao,
   motivoId: props.ticket?.motivo.id.toString(),
   tipo: props.ticket?.tipo,
+  veiculoId: props.ticket?.veiculo.id.toString(),
+  contatoId: props.ticket?.contato ? props.ticket.contato.id.toString() : null,
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
@@ -79,6 +87,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     ...values,
     motivoId: +values.motivoId,
     veiculoId: +values.veiculoId,
+    contatoId: values.contatoId ? +values.contatoId : null,
   });
 
   if (props.clearFormAfterSubmit) {
@@ -124,9 +133,9 @@ function back() {
 </script>
 
 <template>
-  {{ form.values }}
-  --
-  {{ form.errors }}
+  <!-- {{ form.values }}
+  <br />
+  {{ form.errors }} -->
   <form class="mt-2 space-y-2" @submit="onSubmit">
     <nav class="list-none flex justify-between gap-3 pb-3 border-b-[2px]">
       <li
