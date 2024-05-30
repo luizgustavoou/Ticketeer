@@ -25,6 +25,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useToast } from "@/components/ui/toast";
 import { ArrowLeft, ArrowRight } from "lucide-vue-next";
 import { authService } from "@/services";
+import { onUnmounted } from "vue";
 
 const { toast, dismiss } = useToast();
 const router = useRouter();
@@ -89,6 +90,8 @@ const onSubmit = form.handleSubmit(async (values) => {
     });
   }
 });
+
+onUnmounted(dismiss);
 </script>
 
 <template>

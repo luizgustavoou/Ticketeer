@@ -1,3 +1,4 @@
+import "../seed/seed";
 import "reflect-metadata";
 
 // express

@@ -20,7 +20,7 @@ model Usuario {
   // login    String
   password String
 
-  role Role
+  role Role @default(ATENDENTE)
 }
 
 enum Role {
