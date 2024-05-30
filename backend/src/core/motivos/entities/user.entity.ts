@@ -22,9 +22,9 @@ export class UserData {
   @IsEmail()
   email!: string;
 
-  @Expose()
-  @MinLength(5)
-  login!: string;
+  // @Expose()
+  // @MinLength(5)
+  // login!: string;
 
   @Expose()
   @MinLength(5)

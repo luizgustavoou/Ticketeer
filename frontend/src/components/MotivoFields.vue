@@ -2,8 +2,7 @@
 // Icons
 import { Search } from "lucide-vue-next";
 
-// Shadcn-vue
-
+// Shadcn-vue components
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   FormControl,
@@ -16,7 +15,20 @@ import {
 import Textarea from "@/components/ui/textarea/Textarea.vue";
 import FormLabel from "@/components/ui/form/FormLabel.vue";
 import FormDescription from "@/components/ui/form/FormDescription.vue";
+import { onBeforeMount, ref } from "vue";
+import { IMotivoEntity } from "@/entities/ITicket";
+import { motivosService } from "@/services";
 
+const motivos = ref<IMotivoEntity[]>([]);
+
+async function getMotivos() {
+  const res = await motivosService.findMany();
+
+  motivos.value = res;
+}
+onBeforeMount(async () => {
+  await getMotivos();
+});
 </script>
 
 <template>
@@ -41,25 +53,16 @@ import FormDescription from "@/components/ui/form/FormDescription.vue";
             class="flex flex-col space-y-1 bg-[#F1F5F9] p-2"
             v-bind="componentField"
           >
-            <FormItem class="flex items-center space-y-0 gap-x-3">
+            <FormItem
+              v-for="motivo in motivos"
+              class="flex items-center space-y-0 gap-x-3"
+            >
               <FormControl>
-                <RadioGroupItem value="1" />
+                <RadioGroupItem :value="motivo.id.toString()" />
               </FormControl>
-              <FormLabel class="font-normal"> Motivo 1 </FormLabel>
-            </FormItem>
-
-            <FormItem class="flex items-center space-y-0 gap-x-3">
-              <FormControl>
-                <RadioGroupItem value="2" />
-              </FormControl>
-              <FormLabel class="font-normal"> Motivo 2 </FormLabel>
-            </FormItem>
-
-            <FormItem class="flex items-center space-y-0 gap-x-3">
-              <FormControl>
-                <RadioGroupItem value="3" />
-              </FormControl>
-              <FormLabel class="font-normal"> Motivo 3 </FormLabel>
+              <FormLabel class="font-normal">
+                {{ motivo.descricao }}
+              </FormLabel>
             </FormItem>
           </RadioGroup>
         </FormControl>

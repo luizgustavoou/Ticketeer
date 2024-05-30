@@ -23,6 +23,7 @@ import { metadataRoutes } from "@/router/RoutesConfig";
 // Pinia store
 import { useAuthStore } from "@/stores/auth";
 import { useToast } from "@/components/ui/toast";
+import { ArrowLeft, ArrowRight } from "lucide-vue-next";
 
 const { toast, dismiss } = useToast();
 const router = useRouter();
@@ -64,7 +65,7 @@ const onSubmit = form.handleSubmit(async (values) => {
       description:
         error?.message ||
         "Erro desconhecido, por favor contatar os desenvolvedores.",
-      variant: "default",
+      variant: "destructive",
       duration: 1000,
     });
   }
@@ -74,8 +75,15 @@ const onSubmit = form.handleSubmit(async (values) => {
 <template>
   <div class="flex-1 flex">
     <div
-      class="bg-[#F1F5F9] p-6 flex-1 flex flex-col justify-center items-center gap-4"
+      class="relative bg-[#F1F5F9] p-6 flex-1 flex flex-col justify-center items-center gap-4"
     >
+      <RouterLink
+        class="flex space-x-3 font-bold text-primary absolute top-5 right-5"
+        :to="{ name: metadataRoutes.SIGNUP.name }"
+      >
+        <span> Registrar-se </span>
+        <ArrowRight />
+      </RouterLink>
       <div>
         <header class="flex flex-col gap-2">
           <h1 class="text-2xl text-primary font-bold">Entre na sua conta</h1>

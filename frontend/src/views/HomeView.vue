@@ -83,14 +83,12 @@ const onSubmit = form.handleSubmit(async (values) => {
     form.resetForm();
     indexFormField.value = 0;
   } catch (error) {
-    
-    
     toast({
       title: "Erro ao cadastrar ticket",
       description:
         error?.message ||
         "Erro desconhecido, por favor contatar os desenvolvedores.",
-      variant: "default",
+      variant: "destructive",
       duration: 1000,
     });
   }

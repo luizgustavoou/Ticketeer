@@ -1,8 +1,11 @@
 import { AuthApiImpl, IAuthApi } from "@/apis/auth/auth.api";
-import { ITicketsApi, TicketsApiImpl } from "./tickets/tickets.api";
+import { ITicketsApi, TicketsApiImpl } from "@/apis/tickets/tickets.api";
+import { IMotivosApi, MotivosApiImpl } from "@/apis/motivos/motivos.api";
 
 const authApi: IAuthApi = new AuthApiImpl();
 
 const ticketsApi: ITicketsApi = new TicketsApiImpl();
 
-export { authApi, ticketsApi };
+const motivosApi: IMotivosApi = new MotivosApiImpl();
+
+export { authApi, ticketsApi, motivosApi };

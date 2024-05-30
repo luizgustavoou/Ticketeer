@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import {
   IsString,
   IsInt,
@@ -24,13 +24,10 @@ export class UserData {
 
   @Expose()
   @MinLength(5)
-  login!: string;
-
-  @Expose()
-  @MinLength(5)
   password!: string;
 
   @Expose()
+  @Transform(({ value }) => value || RoleValues[1])
   @IsIn(RoleValues)
   role!: Roles;
 }

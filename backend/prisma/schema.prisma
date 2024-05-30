@@ -17,7 +17,7 @@ model Usuario {
   tickets Ticket[]
 
   // Auth
-  login    String
+  // login    String
   password String
 
   role Role
