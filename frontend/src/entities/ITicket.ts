@@ -19,7 +19,7 @@ export interface IMotivoEntity extends IMotivoData {
   id: number;
 }
 
-export interface TicketData {
+export interface ITicketData {
   tipo: TipoTicket;
   descricao: string;
   dataAbertura: Date;
@@ -28,14 +28,14 @@ export interface TicketData {
   usuarioId: number;
 }
 
-export interface InputTicketData extends TicketData {
+export interface IInputTicketData extends ITicketData {
   motivoId: number;
 }
 
-export interface OutputTicketData extends TicketData {
+export interface IOutputTicketData extends ITicketData {
   motivo: IMotivoEntity;
 }
 
-export interface TicketEntity extends OutputTicketData {
+export interface ITicketEntity extends IOutputTicketData {
   id: number;
 }
