@@ -29,6 +29,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/components/ui/toast/use-toast";
 
 // Pinia
 import { useTicketsStore } from "@/stores/tickets";
@@ -39,6 +51,7 @@ import { Pencil, Trash2 } from "lucide-vue-next";
 import { computed, ref, watchEffect } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 
+const { toast, dismiss } = useToast();
 const ticketsStore = useTicketsStore();
 
 const { tickets } = storeToRefs(ticketsStore);
@@ -61,6 +74,27 @@ const ticketsTable = computed(() => {
 //   await getTickets();
 // });
 
+const deleteTicket = async (id: number) => {
+  try {
+    await ticketsStore.remove(id);
+
+    toast({
+      title: "Remover ticket",
+      description: "Ticket removido com sucesso!",
+      variant: "default",
+      duration: 1000,
+    });
+  } catch (error) {
+    toast({
+      title: "Erro ao remover ticket",
+      description:
+        error?.message ||
+        "Erro desconhecido, por favor contatar os desenvolvedores.",
+      variant: "destructive",
+      duration: 1000,
+    });
+  }
+};
 const handleStringToInt = (value: string) => {
   page.value = 1;
   itemsPerPage.value = parseInt(value);
@@ -113,12 +147,34 @@ const handleStringToInt = (value: string) => {
           <Button variant="ghost">
             <Pencil />
           </Button>
-          <Button
-            variant="ghost"
-            class="text-destructive hover:text-destructive"
-          >
-            <Trash2 />
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger>
+              <Button
+                variant="ghost"
+                class="text-destructive hover:text-destructive"
+              >
+                <Trash2 />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle
+                  >Você tem certeza que deseja remover o
+                  ticket?</AlertDialogTitle
+                >
+                <AlertDialogDescription>
+                  Essa ação não pode ser desfeita. Isso excluirá permanentemente
+                  o ticket dos nossos servidores.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction @click="() => deleteTicket(ticket.id)"
+                  >Continuar</AlertDialogAction
+                >
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </TableCell>
       </TableRow>
     </TableBody>

@@ -30,11 +30,11 @@ export const useTicketsStore = defineStore("tickets", () => {
     });
   }
 
-  async function deleteProject(ticketId: number) {
+  async function remove(ticketId: number) {
     const res = await ticketsService.remove(ticketId);
 
     tickets.value = tickets.value.filter((ticket) => ticket.id != res.id);
   }
 
-  return { tickets, getTickets, create, update, deleteProject };
+  return { tickets, getTickets, create, update, remove };
 });

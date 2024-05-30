@@ -22,10 +22,6 @@ export interface IMotivoEntity extends IMotivoData {
 export interface ITicketData {
   tipo: TipoTicket;
   descricao: string;
-  // dataAbertura: Date;
-  // prazo: Date;
-  // status: StatusTicket;
-  // usuarioId: number;
 }
 
 export interface IInputTicketData extends ITicketData {
@@ -34,6 +30,10 @@ export interface IInputTicketData extends ITicketData {
 
 export interface IOutputTicketData extends ITicketData {
   motivo: IMotivoEntity;
+  dataAbertura: Date;
+  prazo: Date;
+  status: StatusTicket;
+  usuarioId: number;
 }
 
 export interface ITicketEntity extends IOutputTicketData {
