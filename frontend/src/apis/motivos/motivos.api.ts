@@ -6,7 +6,7 @@ export interface IMotivosApi {
   update(id: number, data: IMotivoData): Promise<IMotivoEntity>;
   remove(id: number): Promise<IMotivoEntity>;
   findOneById(id: number): Promise<IMotivoEntity>;
-  findMany(page: number, take: number): Promise<IMotivoEntity[]>;
+  findMany(): Promise<IMotivoEntity[]>;
 }
 
 export class MotivosApiImpl implements IMotivosApi {
@@ -34,13 +34,8 @@ export class MotivosApiImpl implements IMotivosApi {
     return res.data;
   }
 
-  async findMany(page: number = 1, take: number = 3): Promise<IMotivoEntity[]> {
-    const res = await api.get<IMotivoEntity[]>("/motivos", {
-      params: {
-        page,
-        take,
-      },
-    });
+  async findMany(): Promise<IMotivoEntity[]> {
+    const res = await api.get<IMotivoEntity[]>("/motivos");
 
     return res.data;
   }

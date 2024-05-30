@@ -47,6 +47,13 @@ const formSchema = toTypedSchema(
       .min(1, {
         message: "Selecione um motivo",
       }),
+    veiculoId: z
+      .string({
+        required_error: "Selecione um veículo",
+      })
+      .min(1, {
+        message: "Selecione um veículo",
+      }),
     descricao: z
       .string({
         required_error: "Descreva os detalhes",
@@ -71,10 +78,11 @@ const onSubmit = form.handleSubmit(async (values) => {
   await props.handleSubmit({
     ...values,
     motivoId: +values.motivoId,
+    veiculoId: +values.veiculoId,
   });
 
   if (props.clearFormAfterSubmit) {
-    console.log('oi')
+    console.log("oi");
     form.resetForm();
     indexFormField.value = 0;
   }
@@ -116,6 +124,9 @@ function back() {
 </script>
 
 <template>
+  {{ form.values }}
+  --
+  {{ form.errors }}
   <form class="mt-2 space-y-2" @submit="onSubmit">
     <nav class="list-none flex justify-between gap-3 pb-3 border-b-[2px]">
       <li

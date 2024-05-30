@@ -13,6 +13,7 @@ import {
   IsIn,
   ValidateNested,
 } from "class-validator";
+import { VeiculosEntity } from "../../veiculos/entities/veiculos.entity";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -65,11 +66,14 @@ export class TicketData {
   status!: StatusTicket;
 }
 
-
 export class InputTicketData extends TicketData {
   @Expose()
   @IsInt()
   motivoId!: number;
+
+  @Expose()
+  @IsInt()
+  veiculoId!: number;
 
   @Expose()
   @IsInt()
@@ -80,6 +84,10 @@ export class OutputTicketData extends TicketData {
   @ValidateNested()
   @Type(() => MotivoEntity)
   motivo!: MotivoEntity;
+
+  @ValidateNested()
+  @Type(() => MotivoEntity)
+  veiculo!: VeiculosEntity;
 }
 
 export class TicketEntity extends OutputTicketData {

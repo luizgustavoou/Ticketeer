@@ -35,12 +35,24 @@ model Ticket {
   motivoId     Int
   descricao    String
   // cliente
-  // veiculo
   dataAbertura DateTime     @default(now())
   prazo        DateTime
   status       StatusTicket @default(PARADO)
-  Usuario      Usuario?     @relation(fields: [usuarioId], references: [id])
-  usuarioId    Int
+
+  Usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+
+  veiculo   Veiculo @relation(fields: [veiculoId], references: [id])
+  veiculoId Int
+
+  contato   Contato? @relation(fields: [contatoId], references: [id])
+  contatoId Int?
+}
+
+model Contato {
+  id        Int      @id @default(autoincrement())
+  descricao String
+  Ticket    Ticket[]
 }
 
 model Motivo {
@@ -50,7 +62,9 @@ model Motivo {
 }
 
 model Veiculo {
-  id Int @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
+  identificador String
+  Ticket        Ticket[]
 }
 
 enum StatusTicket {

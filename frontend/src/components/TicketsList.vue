@@ -175,7 +175,7 @@ const handleStringToInt = (value: string) => {
           {{ "Cliente" }}
         </TableCell>
         <TableCell>
-          {{ "Veículo" }}
+          {{ ticket.veiculo.identificador }}
         </TableCell>
         <TableCell>
           {{ ticket.dataAbertura }}

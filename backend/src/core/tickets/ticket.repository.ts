@@ -19,6 +19,7 @@ export class TicketRepositoryImpl implements TicketRepository {
     const output = await this.prisma.ticket.findMany({
       include: {
         motivo: true,
+        veiculo: true,
       },
       // skip,
       // take,
@@ -33,6 +34,7 @@ export class TicketRepositoryImpl implements TicketRepository {
       },
       include: {
         motivo: true,
+        veiculo: true,
       },
     });
 
@@ -43,6 +45,7 @@ export class TicketRepositoryImpl implements TicketRepository {
       data,
       include: {
         motivo: true,
+        veiculo: true,
       },
     });
 
@@ -59,6 +62,7 @@ export class TicketRepositoryImpl implements TicketRepository {
       },
       include: {
         motivo: true,
+        veiculo: true,
       },
     });
 
@@ -72,6 +76,7 @@ export class TicketRepositoryImpl implements TicketRepository {
       },
       include: {
         motivo: true,
+        veiculo: true,
       },
     });
 

@@ -6,7 +6,7 @@ export interface IMotivosService {
   update(id: number, data: IMotivoData): Promise<IMotivoEntity>;
   remove(id: number): Promise<IMotivoEntity>;
   findOneById(id: number): Promise<IMotivoEntity>;
-  findMany(page?: number, take?: number): Promise<IMotivoEntity[]>;
+  findMany(): Promise<IMotivoEntity[]>;
 }
 
 export class MotivosServiceImpl implements IMotivosService {
@@ -36,8 +36,8 @@ export class MotivosServiceImpl implements IMotivosService {
     return res;
   }
 
-  async findMany(page: number = 1, take: number = 3): Promise<IMotivoEntity[]> {
-    const res = await this.motivosApi.findMany(page, take);
+  async findMany(): Promise<IMotivoEntity[]> {
+    const res = await this.motivosApi.findMany();
 
     return res;
   }

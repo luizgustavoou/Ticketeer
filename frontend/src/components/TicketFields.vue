@@ -12,23 +12,48 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Entities
 import Textarea from "@/components/ui/textarea/Textarea.vue";
 import FormLabel from "@/components/ui/form/FormLabel.vue";
 import FormDescription from "@/components/ui/form/FormDescription.vue";
+import { IVeiculoEntity } from "@/entities/IVeiculo";
+import { veiculosService } from "@/services";
+
+// Vue imports
+import { onBeforeMount, ref } from "vue";
+
+const veiculos = ref<IVeiculoEntity[]>([]);
+
+async function getVeiculos() {
+  const res = await veiculosService.findMany();
+
+  veiculos.value = res;
+}
+onBeforeMount(async () => {
+  await getVeiculos();
+});
 </script>
 
 <template>
-  <div>
+  <div class="space-y-5">
     <FormField v-slot="{ componentField }" type="radio" name="tipo">
       <FormItem>
-        <FormLabel> Qual o motivo desse ticket? </FormLabel>
+        <FormLabel> Qual o intuito desse ticket? </FormLabel>
         <FormDescription>Sub título</FormDescription>
 
         <FormControl>
           <RadioGroup
-            class="grid grid-cols-2  space-y-1"
+            class="grid grid-cols-2 space-y-1"
             v-bind="componentField"
           >
             <FormItem
@@ -42,6 +67,29 @@ import FormDescription from "@/components/ui/form/FormDescription.vue";
             </FormItem>
           </RadioGroup>
         </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <FormField v-slot="{ componentField }" name="veiculoId">
+      <FormItem>
+        <Select v-bind="componentField">
+          <FormControl>
+            <SelectTrigger>
+              <SelectValue placeholder="Veículo(s)" />
+            </SelectTrigger>
+          </FormControl>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem
+                v-for="veiculo in veiculos"
+                :value="veiculo.id.toString()"
+              >
+                {{ veiculo.identificador }}
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <FormMessage />
       </FormItem>
     </FormField>
