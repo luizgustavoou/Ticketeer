@@ -1,4 +1,10 @@
-import { Expose, Transform, Type } from "class-transformer";
+import {
+  Expose,
+  plainToClass,
+  plainToInstance,
+  Transform,
+  Type,
+} from "class-transformer";
 import {
   IsString,
   IsInt,
@@ -40,20 +46,21 @@ export class TicketData {
 
   @Expose()
   @IsString()
-  @MinLength(10)
+  @MinLength(5)
   descricao!: string;
 
   @Expose()
-  @Transform(({ value }) => new Date(value))
+  @Transform(({ value }) => (value ? new Date(value) : new Date()))
   @IsDate()
   dataAbertura!: Date;
 
   @Expose()
-  @Transform(({ value }) => new Date(value))
+  @Transform(({ value }) => (value ? new Date(value) : new Date()))
   @IsDate()
   prazo!: Date;
 
   @Expose()
+  @Transform(({ value }) => value || StatusTicketValues[0])
   @IsIn(StatusTicketValues)
   status!: StatusTicket;
 
@@ -62,7 +69,9 @@ export class TicketData {
   usuarioId!: number;
 }
 
+
 export class InputTicketData extends TicketData {
+  @Expose()
   @IsInt()
   motivoId!: number;
 }

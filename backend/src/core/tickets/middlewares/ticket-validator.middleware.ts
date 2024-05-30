@@ -1,7 +1,7 @@
 import { validateOrReject } from "class-validator";
 import { Response, Request, NextFunction } from "express";
 import { InputTicketData } from "../entities/ticket.entity";
-import { plainToClass } from "class-transformer";
+import { plainToInstance } from "class-transformer";
 
 export const createTicketValidator = async (
   req: Request,
@@ -13,7 +13,7 @@ export const createTicketValidator = async (
       return res.status(400).send({ message: "Missing request body!" });
     }
 
-    const ticketDTO = plainToClass(InputTicketData, req.body, {
+    const ticketDTO = plainToInstance(InputTicketData, req.body, {
       excludeExtraneousValues: true,
     });
 

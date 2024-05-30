@@ -41,10 +41,6 @@
                 <RadioGroupItem id="r2" value="comfortable" />
                 <Label for="r2">Comfortable</Label>
               </div>
-              <div class="flex items-center space-x-2">
-                <RadioGroupItem id="r3" value="compact" />
-                <Label for="r3">Compact</Label>
-              </div>
             </RadioGroup>
           </div>
         </div>
@@ -61,6 +57,7 @@
 <script setup lang="ts">
 // Icons
 import { Plus } from "lucide-vue-next";
+
 // Shadcn-vue
 import Button from "@/components/ui/button/Button.vue";
 import {
@@ -76,6 +73,32 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+// Zod
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
+import * as z from "zod";
+
+// Entities
+import { TipoTicketValues } from "@/entities/ITicket";
+
+const formSchema = toTypedSchema(
+  z.object({
+    tipo: z.enum(TipoTicketValues),
+    motivoId: z.string().min(1),
+    descricao: z.string().min(5),
+    dataAbertura: z.date(),
+    prazo: z.date(),
+  })
+);
+
+const form = useForm({
+  validationSchema: formSchema,
+});
+
+const onSubmit = form.handleSubmit((values) => {
+  console.log({ values });
+});
 </script>
 
 <style scoped></style>
