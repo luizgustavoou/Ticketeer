@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { InputTicketData, TicketEntity } from "./entities/ticket.entity";
 
 export abstract class TicketRepository {
-  abstract findMany(): Promise<TicketEntity[]>;
+  abstract findMany(skip: number, take: number): Promise<TicketEntity[]>;
   abstract findOneById(id: number): Promise<TicketEntity>;
   abstract create(data: InputTicketData): Promise<TicketEntity>;
   abstract update(
@@ -15,11 +15,13 @@ export abstract class TicketRepository {
 export class TicketRepositoryImpl implements TicketRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  async findMany(): Promise<TicketEntity[]> {
+  async findMany(skip: number, take: number): Promise<TicketEntity[]> {
     const output = await this.prisma.ticket.findMany({
       include: {
         motivo: true,
       },
+      skip,
+      take,
     });
 
     return output;

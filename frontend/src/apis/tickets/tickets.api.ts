@@ -6,7 +6,7 @@ export interface ITicketsApi {
   update(id: number, data: IInputTicketData): Promise<ITicketEntity>;
   remove(id: number): Promise<ITicketEntity>;
   findOneById(id: number): Promise<ITicketEntity>;
-  findMany(): Promise<ITicketEntity[]>;
+  findMany(page: number, take: number): Promise<ITicketEntity[]>;
 }
 
 export class TicketsApiImpl implements ITicketsApi {
@@ -34,8 +34,13 @@ export class TicketsApiImpl implements ITicketsApi {
     return res.data;
   }
 
-  async findMany(): Promise<ITicketEntity[]> {
-    const res = await api.get<ITicketEntity[]>("/tickets");
+  async findMany(page: number = 1, take: number = 3): Promise<ITicketEntity[]> {
+    const res = await api.get<ITicketEntity[]>("/tickets", {
+      params: {
+        page,
+        take,
+      },
+    });
 
     return res.data;
   }

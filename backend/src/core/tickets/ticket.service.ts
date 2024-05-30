@@ -3,7 +3,7 @@ import { InputTicketData, TicketEntity } from "./entities/ticket.entity";
 import { TicketRepository } from "./ticket.repository";
 
 export abstract class TicketService {
-  abstract findMany(): Promise<TicketEntity[]>;
+  abstract findMany(skip: number, take: number): Promise<TicketEntity[]>;
   abstract findOneById(id: number): Promise<TicketEntity>;
   abstract create(data: InputTicketData): Promise<TicketEntity>;
   abstract update(
@@ -16,8 +16,8 @@ export abstract class TicketService {
 export class TicketServiceImpl implements TicketService {
   constructor(private readonly ticketRepository: TicketRepository) {}
 
-  async findMany(): Promise<TicketEntity[]> {
-    const output = await this.ticketRepository.findMany();
+  async findMany(skip: number, take: number): Promise<TicketEntity[]> {
+    const output = await this.ticketRepository.findMany(skip, take);
 
     return output;
   }

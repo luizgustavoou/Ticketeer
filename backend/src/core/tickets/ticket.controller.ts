@@ -9,7 +9,11 @@ export class TicketControllerImpl {
 
   async findMany(req: Request, res: Response, next: NextFunction) {
     try {
-      const output = await this.ticketService.findMany();
+      const { page = 1, take = 3 } = req.query;
+
+      const skip = (+page - 1) * +take;
+
+      const output = await this.ticketService.findMany(skip, +take);
 
       return res.status(StatusCodes.OK).send(output);
     } catch (error) {
