@@ -11,7 +11,6 @@ import cors from "cors";
 import { router } from "./routes";
 // dotenv
 import dotenv from "dotenv";
-import { ErrorHandler } from "../commons/middlewares/error-handler";
 import { errorHandler } from "../commons/middlewares";
 
 dotenv.config();

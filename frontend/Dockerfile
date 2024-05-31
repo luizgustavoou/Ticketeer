@@ -12,6 +12,9 @@ RUN npm install
 
 COPY . .
 
+ARG VUE_APP_API_BASE_URL
+ENV VITE_VUE_APP_API_BASE_URL=$VUE_APP_API_BASE_URL
+
 # Expose the port that your Vue.js app is listening on
 EXPOSE 3000
 

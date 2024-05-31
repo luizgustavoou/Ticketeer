@@ -5,7 +5,12 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - $API_LOCAL_PORT:$API_DOCKER_PORT
+    environment:
+      - API_PORT=$API_DOCKER_PORT
+      - DATABASE_URL=$DATABASE_URL
+      - CLIENT_ORIGIN=$CLIENT_ORIGIN
+      - JWT_SECRET=$JWT_SECRET
     volumes:
       - ./backend:/app
     depends_on:
@@ -16,19 +21,21 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - VUE_APP_API_BASE_URL=$CLIENT_API_BASE_URL
     ports:
-      - "3000:3000"
+      - $UI_LOCAL_PORT:$UI_DOCKER_PORT
     volumes:
       - ./frontend:/app
 
   postgres:
     image: postgres
     ports:
-      - "5432:5432"
+      - $POSTGRESQL_LOCAL_PORT:$POSTGRESQL_DOCKER_PORT
     environment:
-      POSTGRES_USER: comigotech
-      POSTGRES_PASSWORD: comigotech
-      POSTGRES_DB: comigotech
+      POSTGRES_USER: $POSTGRESQL_USER
+      POSTGRES_PASSWORD: $POSTGRESQL_PASSWORD
+      POSTGRES_DB: $POSTGRESQL_DATABASE
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U comigotech"]
       interval: 2s

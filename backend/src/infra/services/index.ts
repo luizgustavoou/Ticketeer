@@ -5,7 +5,7 @@ import { BcryptServiceImpl, CryptService } from "./crypt.service";
 
 dotenv.config();
 
-const jwtSecret: string = process.env.JWT_SECRET as string;
+const jwtSecret: string = process.env.JWT_SECRET || "secret";
 
 const jwtService: JwtService = new JwtServiceImpl(jwtSecret);
 
