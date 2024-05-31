@@ -2,6 +2,9 @@
 // App components
 import TicketForm from "@/components/TicketForm.vue";
 
+// Labels
+import { statusTicketLabel } from "@/utils/labels";
+
 // Shadcn-vue components
 import {
   Table,
@@ -68,6 +71,7 @@ import { useDebounceFn } from "@vueuse/core";
 import { IUserEntity, RoleValues } from "@/entities/IUser";
 import { usersService } from "@/services";
 import { useAuthStore } from "@/stores/auth";
+import moment from "moment";
 
 const { toast, dismiss } = useToast();
 const ticketsStore = useTicketsStore();
@@ -168,6 +172,7 @@ onBeforeMount(fetchUser);
         <TableHead>Veículo</TableHead>
         <TableHead>Data de abertura</TableHead>
         <TableHead>Prazo</TableHead>
+        <TableHead>Status</TableHead>
         <TableHead> Ações </TableHead>
       </TableRow>
     </TableHeader>
@@ -192,10 +197,13 @@ onBeforeMount(fetchUser);
           {{ ticket.veiculo.identificador }}
         </TableCell>
         <TableCell>
-          {{ ticket.dataAbertura }}
+          {{ moment(ticket.dataAbertura).format("DD/MM/YYYY") }}
         </TableCell>
         <TableCell>
-          {{ ticket.prazo }}
+          {{ moment(ticket.prazo).format("DD/MM/YYYY") }}
+        </TableCell>
+        <TableCell>
+          {{ statusTicketLabel[ticket.status] }}
         </TableCell>
         <TableCell>
           <Sheet>

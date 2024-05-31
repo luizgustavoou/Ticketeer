@@ -14,6 +14,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { VeiculosEntity } from "../../veiculos/entities/veiculos.entity";
+import moment from "moment";
 
 export const StatusTicketValues = ["PARADO", "PROGRESSO", "CONCLUIDO"] as const;
 
@@ -40,6 +41,8 @@ export class MotivoEntity extends MotivoData {
   id!: number;
 }
 
+console.log(moment(Date.now()).add(1, "days").toDate());
+
 export class TicketData {
   @Expose()
   @IsIn(TipoTicketValues)
@@ -56,7 +59,9 @@ export class TicketData {
   dataAbertura!: Date;
 
   @Expose()
-  @Transform(({ value }) => (value ? new Date(value) : new Date()))
+  @Transform(({ value }) =>
+    value ? new Date(value) : moment().add(3, "days").toDate()
+  )
   @IsDate()
   prazo!: Date;
 

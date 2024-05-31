@@ -17,6 +17,7 @@
     "jwt-decode": "^4.0.0",
     "jwt-service": "^10.1.0",
     "lucide-vue-next": "^0.379.0",
+    "moment": "^2.30.1",
     "pinia": "^2.1.7",
     "radix-vue": "^1.8.2",
     "tailwind-merge": "^2.3.0",

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // Icons
-import { Search } from "lucide-vue-next";
 
-import { experienceStateLabel } from "../utils/labels";
+// Labels
+import { tipoTicketLabel } from "@/utils/labels";
 
 // Shadcn-vue
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -17,16 +17,16 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-// Entities
-import Textarea from "@/components/ui/textarea/Textarea.vue";
 import FormLabel from "@/components/ui/form/FormLabel.vue";
 import FormDescription from "@/components/ui/form/FormDescription.vue";
+
+// Entities
 import { IVeiculoEntity } from "@/entities/IVeiculo";
+
+// Services
 import { veiculosService } from "@/services";
 
 // Vue imports
@@ -57,7 +57,7 @@ onBeforeMount(async () => {
             v-bind="componentField"
           >
             <FormItem
-              v-for="item in Object.entries(experienceStateLabel)"
+              v-for="item in Object.entries(tipoTicketLabel)"
               class="flex items-center space-y-0 gap-x-3"
             >
               <FormControl>
