@@ -2,7 +2,7 @@
 
 ## :memo: Sobre o Projeto
 Comigotech Ticket Management System
-Este repositório contém a implementação de um sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
+Sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
 
 ## Layout da Web
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/ab3deeea-8b3c-421d-b237-a18acc97f171)
