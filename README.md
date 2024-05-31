@@ -18,7 +18,6 @@ Este repositório contém a implementação de um sistema de gerenciamento de ti
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/e2de59a7-e936-4e6c-82d7-4dfaec543184)
 
 ## Funcionalidades
-
 ### Backend
 
 - **Nível 1 - Validação**: API que recebe dados de um ticket e valida os campos. Retorna mensagens de erro se houver campos inválidos ou retorna os dados em formato JSON se todos os dados estiverem válidos.
@@ -36,6 +35,25 @@ Este repositório contém a implementação de um sistema de gerenciamento de ti
 - **Nível 3 - Listando**: Sistema de listagem de tickets com opções de edição e exclusão, dependendo do cargo do usuário.
 - **Nível 4 - Autenticação**: Sistema de login e senha para controle de acesso e permissões autenticadas.
 - **Nível 5 - Testes**: Testes para a aplicação frontend.
+
+# :wrench: Tecnologias utilizadas
+## Backend
+* cxpress
+* class validator
+* class transformer
+* jwt decode
+* Prisma
+* PostgreSQL
+* bcrypt
+* jwt-service
+* moment
+* reflect-metadata
+
+## Frontend
+* Vue
+* Pinia
+* Tailwind CSS
+* shadcn-vue
 
 ## Infraestrutura
 * Docker
