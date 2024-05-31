@@ -1,9 +1,6 @@
 # Avaliação ComigoTech
 
 ## :memo: Sobre o Projeto
-
-Claro! Aqui está um exemplo de README.md para o seu projeto:
-
 Comigotech Ticket Management System
 Este repositório contém a implementação de um sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
 
