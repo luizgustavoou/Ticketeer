@@ -61,10 +61,13 @@ import { storeToRefs } from "pinia";
 import { Pencil, Trash2, Check } from "lucide-vue-next";
 
 // Vue imports
-import { computed, ref, watchEffect } from "vue";
+import { computed, onBeforeMount, onMounted, ref, watchEffect } from "vue";
 
 // Vueuse
 import { useDebounceFn } from "@vueuse/core";
+import { IUserEntity, RoleValues } from "@/entities/IUser";
+import { usersService } from "@/services";
+import { useAuthStore } from "@/stores/auth";
 
 const { toast, dismiss } = useToast();
 const ticketsStore = useTicketsStore();
@@ -139,6 +142,17 @@ const handleStringToInt = (value: string) => {
   page.value = 1;
   itemsPerPage.value = parseInt(value);
 };
+
+const authStore = useAuthStore();
+const user = ref<IUserEntity | null>(null);
+
+async function fetchUser() {
+  if (!authStore.user.id) return;
+
+  user.value = await usersService.findOneById(authStore.user.id);
+}
+
+onBeforeMount(fetchUser);
 </script>
 
 <template>
@@ -211,7 +225,7 @@ const handleStringToInt = (value: string) => {
             </SheetContent>
           </Sheet>
 
-          <AlertDialog>
+          <AlertDialog v-if="user?.role == RoleValues[0]">
             <AlertDialogTrigger>
               <Button
                 variant="ghost"

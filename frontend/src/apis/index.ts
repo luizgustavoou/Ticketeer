@@ -3,6 +3,7 @@ import { ITicketsApi, TicketsApiImpl } from "@/apis/tickets/tickets.api";
 import { IMotivosApi, MotivosApiImpl } from "@/apis/motivos/motivos.api";
 import { ContatosApiImpl, IContatosApi } from "@/apis/contatos/contatos.api";
 import { IVeiculosApi, VeiculosApiImpl } from "@/apis/veiculos/veiculos.api";
+import { IUsersApi, UsersApiImpl } from "./users/users.api";
 
 const authApi: IAuthApi = new AuthApiImpl();
 
@@ -14,4 +15,6 @@ const contatosApi: IContatosApi = new ContatosApiImpl();
 
 const veiculosApi: IVeiculosApi = new VeiculosApiImpl();
 
-export { authApi, ticketsApi, motivosApi, contatosApi, veiculosApi };
+const usersApi: IUsersApi = new UsersApiImpl();
+
+export { authApi, ticketsApi, motivosApi, contatosApi, veiculosApi, usersApi };

@@ -12,6 +12,7 @@ import {
   contatosApi,
   motivosApi,
   ticketsApi,
+  usersApi,
   veiculosApi,
 } from "@/apis";
 import {
@@ -25,11 +26,15 @@ import {
 import {
   ContatosServiceImpl,
   IContatosService,
-} from "./contatos/contatos.service";
+} from "@/services/contatos/contatos.service";
 import {
   IVeiculosService,
   VeiculosServiceImpl,
-} from "./veiculos/veiculos.service";
+} from "@/services/veiculos/veiculos.service";
+import {
+  IUsersService,
+  UsersServiceImpl,
+} from "@/services/users/users.service";
 
 const authService: IAuthService = new AuthServiceImpl(authApi);
 
@@ -45,6 +50,8 @@ const storageService: IStorageService = new LocalStorageServiceImpl();
 
 const jwtService: IJwtService = new JwtServiceImpl();
 
+const usersService: IUsersService = new UsersServiceImpl(usersApi);
+
 export {
   storageService,
   authService,
@@ -53,4 +60,5 @@ export {
   contatosService,
   ticketsService,
   veiculosService,
+  usersService,
 };

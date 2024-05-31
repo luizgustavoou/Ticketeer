@@ -78,8 +78,8 @@ onBeforeMount(async () => {
             <span>06/04/2024</span>
           </p>
           <p>
-            Informe o cliente que a resolução deste motivo está prevista em {3
-            dias úteis}.
+            Informe o cliente que a resolução deste motivo está prevista em 3
+            dias úteis.
           </p>
         </FormDescription>
         <FormControl>
