@@ -36,38 +36,61 @@ const props = withDefaults(defineProps<ITicketFormProps>(), {
 });
 
 const formSchema = toTypedSchema(
-  z.object({
-    contatoId: z
-      .string({
-        required_error: "Selecione um contato",
-      })
-      .transform((e) => (e === "" ? null : e))
-      .nullable(),
-    tipo: z.enum(TipoTicketValues, {
-      required_error: "Selecione um tipo de ticket",
-    }),
-    motivoId: z
-      .string({
-        required_error: "Selecione um motivo",
-      })
-      .min(1, {
-        message: "Selecione um motivo",
+  z
+    .object({
+      entrouContato: z.union([z.literal("sim"), z.literal("nao")]),
+      contatoId: z
+        .string({
+          required_error: "Selecione um contato",
+        })
+        .transform((e) => (e === "" ? null : e))
+        .nullable(),
+      tipo: z.enum(TipoTicketValues, {
+        required_error: "Selecione um tipo de ticket",
       }),
-    veiculoId: z
-      .string({
-        required_error: "Selecione um veículo",
-      })
-      .min(1, {
-        message: "Selecione um veículo",
-      }),
-    descricao: z
-      .string({
-        required_error: "Descreva os detalhes",
-      })
-      .min(5, {
-        message: "A descrição deve ter no mínimo 5 caracteres",
-      }),
-  })
+      motivoId: z
+        .string({
+          required_error: "Selecione um motivo",
+        })
+        .min(1, {
+          message: "Selecione um motivo",
+        }),
+      veiculoId: z
+        .string({
+          required_error: "Selecione um veículo",
+        })
+        .min(1, {
+          message: "Selecione um veículo",
+        }),
+      descricao: z
+        .string({
+          required_error: "Descreva os detalhes",
+        })
+        .min(5, {
+          message: "A descrição deve ter no mínimo 5 caracteres",
+        }),
+    })
+    .transform((data) => {
+      if (data.entrouContato == "nao") {
+        return {
+          ...data,
+          contatoId: null,
+        };
+      }
+
+      return data;
+    })
+    .superRefine((data, ctx) => {
+      if (data.entrouContato == "sim") {
+        if (data.contatoId === null) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Campo contato obrigatório",
+            path: ["contatoId"],
+          });
+        }
+      }
+    })
 );
 
 const form = useForm({
@@ -80,6 +103,7 @@ form.setValues({
   tipo: props.ticket?.tipo,
   veiculoId: props.ticket?.veiculo.id.toString(),
   contatoId: props.ticket?.contato ? props.ticket.contato.id.toString() : null,
+  entrouContato: props.ticket?.contato ? "sim" : "nao",
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
@@ -136,7 +160,7 @@ function back() {
   <!-- {{ form.values }}
   <br />
   {{ form.errors }} -->
-  <form class="mt-2 space-y-2" @submit="onSubmit">
+  <form class="mt-2 space-y-4" @submit="onSubmit">
     <nav class="list-none flex justify-between gap-3 pb-3 border-b-[2px]">
       <li
         v-for="(item, index) in navForm"
@@ -148,8 +172,13 @@ function back() {
     </nav>
 
     <div class="me-auto" v-for="(item, index) in navForm">
-      <component v-show="index == indexFormField" :is="item.component" />
+      <component
+        v-show="index == indexFormField"
+        :is="item.component"
+        v-bind="{ form }"
+      />
     </div>
+
     <div class="flex">
       <Button
         type="button"
