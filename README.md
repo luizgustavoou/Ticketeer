@@ -1,65 +1,77 @@
-### Dicas
-- Documente
-- Mostre a sua linha de reciocínio
-- Trabalhe bem o seu README.md
-### Como você deverá desenvolver?
-1. Faça o fork deste projeto
-2. Realize as implementações de acordo com cada um dos níveis
-3. Faça pequenos commits
-4. Depois de sentir que fez o seu máximo, faça um PR para o repositório original.
-**OBSERVAÇÃO** : Faça até o nível que se sentir confortável.
-### Prazo de entrega
-Quanto mais cedo você enviar, mais tempo teremos para revisar seu teste com atenção. Sabemos que a rotina é agitada, por isso, faça no seu ritmo. Não desista! Envie o que conseguir.
-##  O Problema
-O stakeholder da Comigotech solicitou uma nova funcionalidade para o gerenciamento de tickets.
-Diariamente, nossa equipe precisa lidar com um grande volume de tickets, e o processo manual estava deixando todos sobrecarregados!
-Os tickets são registros digitais de solicitações, processos e problemas a serem resolvidos. Para a Comigotech, é essencial integrar essas informações no fluxo de trabalho para atender nossos clientes de forma eficiente.
-## Back-end
-### Nível 1 - Validação
-Implemente uma API utilizando ExpressJS que receba dados de um ticket.
-Se algum campo não estiver preenchido corretamente, deve-se retornar uma mensagem para o usuário mostrando qual o problema foi encontrado em qual campo.
-Se todos os dados estiverem validados. Apenas retorne todos os dados em um formato JSON.
-### Nível 2 - Persistência
-Utilize o banco de dados PostgreSQL e o ORM prisma.
-Crie a estrutura para o armazenamento dos tickets e colaboradores. (Onde os colaboradores estarão vinculados aos tickets que são criados, editados e deletados)
-Caso os dados estejam válidos, cadastre-os.
-Inclua também rotas para as outras operações:
-- Edição;
-- Exclusão;
-- Consulta;
-### Nível 3 - Testes
-Crie testes unitários, utilizando Jest ou Vitest, para cada operação. Para cada nova implementação a seguir, também deve-se criar os testes.
-Refatore o endpoint de autenticação para que sempre se gere JWTs se login e senha estiverem cadastrados no Banco de Dados.
-### Nível 4 - Autenticação
-Inclua um sistema de autenticação com JWT em todas as rotas.
-### Nível 5 - Gerenciamento de permissões
-Agora, crie um sistema de gerenciamento de permissões.
-Crie um novo cadastro de permissões. Esse cadastro deve armazenar: `login` e `password`.
-Os cargos são: `Admin` e `Atendente` onde o Admin será permissão para excluir os tickets.
-### Nível 6 - Infra
-Crie um `Dockerfile` para sua API.
-Crie um `docker-compose.yaml` para iniciar o seu projeto.
-Documente tudo o que foi feito até aqui:
-- Como preparar o ambiente;
-- Como instalar as dependência;
-- Como rodar o projeto;
-### Nível 7 - Cloud
-Crie uma pipeline de deploy da aplicação em alguma estrutura de Cloud. (AWS ou Google)
-## Front-end
-### Nível 1 - Cadastro
-Crie a interface para cadastro dos tickets.
-É importante que sua interface previna o cadastro de campos vazios, ou que não estejam nas regras definidas anteriormente.
-### Nível 2 - Conectando na API
-Conecte a seu Front-end a API que foi criada, e faça o cadastro de um ticket refletir na sua API.
-### Nível 3 - Listando
-Agora faça um sistema de listagens de tickets.
-Além disso, coloque opções de editar e excluir (de acordo com o cargo do usuário).
-Todos os dados devem vir da API.
-### Nível 4 - Autenticação
-Implemente agora o sistema de login e senha para o usuário poder acessar apenas as suas permissões autenticadas.
-Caso o token expire, redirecione o usuário para a página de login.
-### Nível 5 - Testes
-Crie testes para sua aplicação Front-end.
+# Avaliação ComigoTech
 
-### Figma
-Link: https://www.figma.com/design/lxHF87g6eZnnvdCwZal4lA/Teste---Full-Stack?node-id=0-1&t=MWPKderBR0ZJrG25-0
+## :memo: Sobre o Projeto
+
+Claro! Aqui está um exemplo de README.md para o seu projeto:
+
+Comigotech Ticket Management System
+Este repositório contém a implementação de um sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
+
+## Layout da Web
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/ab3deeea-8b3c-421d-b237-a18acc97f171)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/996f3841-a93c-4a7c-b92e-8529181e6bd8)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/88606092-ed19-4583-baa4-996135473634)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/2f473e05-ff86-435d-b78b-eda2d09f2357)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/cf6fb783-f548-49e1-a32f-806243dd9816)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/42f442d2-2d16-43f5-8abd-5d85d3ca2c57)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/2ad2ebb4-cadc-42bc-9721-7edc8d5e9777)
+![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/e2de59a7-e936-4e6c-82d7-4dfaec543184)
+
+## Funcionalidades
+
+### Backend
+
+- **Nível 1 - Validação**: API que recebe dados de um ticket e valida os campos. Retorna mensagens de erro se houver campos inválidos ou retorna os dados em formato JSON se todos os dados estiverem válidos.
+- **Nível 2 - Persistência**: Armazenamento dos tickets e colaboradores no banco de dados PostgreSQL. Inclui rotas para criação, edição, exclusão e consulta de tickets.
+- **Nível 3 - Testes**: Testes unitários para cada operação utilizando Jest ou Vitest.
+- **Nível 4 - Autenticação**: Sistema de autenticação com JWT em todas as rotas.
+- **Nível 5 - Gerenciamento de permissões**: Sistema de gerenciamento de permissões para diferentes cargos (Admin e Atendente). Admin tem permissão para excluir tickets.
+- **Nível 6 - Infra**: Dockerfile e docker-compose.yaml para a API. Documentação sobre como preparar o ambiente, instalar dependências e rodar o projeto.
+- **Nível 7 - Cloud**: Pipeline de deploy da aplicação em estrutura de Cloud (AWS ou Google).
+
+### Frontend
+
+- **Nível 1 - Cadastro**: Interface para cadastro de tickets com validação de campos.
+- **Nível 2 - Conectando na API**: Integração do frontend com a API para cadastro de tickets.
+- **Nível 3 - Listando**: Sistema de listagem de tickets com opções de edição e exclusão, dependendo do cargo do usuário.
+- **Nível 4 - Autenticação**: Sistema de login e senha para controle de acesso e permissões autenticadas.
+- **Nível 5 - Testes**: Testes para a aplicação frontend.
+
+## Infraestrutura
+* Docker
+
+## :rocket: Executando o Projeto
+Pré-requisitos: npm / yarn e Docker instalados
+
+```bash
+# clonar o repositório
+git clone https://github.com/luizgustavoou/avaliacao-candidatos.git
+
+# navegar até o diretório do projeto
+cd avaliacao-candidatos
+
+# instalar dependências do backend
+cd backend/
+
+npm i
+
+cd ../
+
+# instalar dependências do frontend
+cd frontend/
+
+npm i
+
+cd ../
+
+# executar a aplicação
+docker compose up -d
+```
+
+## :soon: Implementações Futuras
+
+## :dart: Status do Projeto
+Concluído
+
+## Autor
+<a href="https://github.com/luizgustavoou">Luiz Gustavo de Oliveira Umbelino</a><br>
