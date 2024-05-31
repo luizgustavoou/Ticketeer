@@ -1,7 +1,6 @@
 # Avaliação ComigoTech
 
 ## :memo: Sobre o Projeto
-Comigotech Ticket Management System
 Sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
 
 ## Layout da Web
