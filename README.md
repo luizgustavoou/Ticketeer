@@ -58,10 +58,10 @@ Prerequisites: npm / yarn and Docker installed
 
 ```bash
 # clone the repository
-git clone https://github.com/luizgustavoou/avaliacao-candidatos.git
+git clone https://github.com/luizgustavoou/Ticketeer.git
 
 # navigate to the project directory
-cd avaliacao-candidatos
+cd ticketeer
 
 # install backend dependencies
 cd backend/
