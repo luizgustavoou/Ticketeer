@@ -1,9 +1,8 @@
-# Avaliação ComigoTech
+# Ticketeer
+## :memo: About the Project
+The Ticketeer project is a comprehensive ticket management system developed for ComigoTech. It features a backend built with ExpressJS and a PostgreSQL database using Prisma as the ORM. The frontend is designed to facilitate the registration and management of tickets through an intuitive interface. This system is designed to streamline the process of ticket handling, making it efficient and user-friendly for both administrators and attendants.
 
-## :memo: Sobre o Projeto
-Sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O sistema é composto por um backend desenvolvido em ExpressJS com um banco de dados PostgreSQL utilizando Prisma como ORM, e um frontend desenvolvido para o cadastro e gerenciamento de tickets.
-
-## Layout da Web
+## Web Layout
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/ab3deeea-8b3c-421d-b237-a18acc97f171)
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/996f3841-a93c-4a7c-b92e-8529181e6bd8)
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/88606092-ed19-4583-baa4-996135473634)
@@ -13,79 +12,79 @@ Sistema de gerenciamento de tickets solicitado pelo stakeholder da Comigotech. O
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/2ad2ebb4-cadc-42bc-9721-7edc8d5e9777)
 ![image](https://github.com/luizgustavoou/avaliacao-candidatos/assets/89609312/e2de59a7-e936-4e6c-82d7-4dfaec543184)
 
-## Funcionalidades
+## Features
 ### Backend
 
-- **Nível 1 - Validação**: API que recebe dados de um ticket e valida os campos. Retorna mensagens de erro se houver campos inválidos ou retorna os dados em formato JSON se todos os dados estiverem válidos.
-- **Nível 2 - Persistência**: Armazenamento dos tickets e colaboradores no banco de dados PostgreSQL. Inclui rotas para criação, edição, exclusão e consulta de tickets.
-- **Nível 3 - Testes**: Testes unitários para cada operação utilizando Jest ou Vitest.
-- **Nível 4 - Autenticação**: Sistema de autenticação com JWT em todas as rotas.
-- **Nível 5 - Gerenciamento de permissões**: Sistema de gerenciamento de permissões para diferentes cargos (Admin e Atendente). Admin tem permissão para excluir tickets.
-- **Nível 6 - Infra**: Dockerfile e docker-compose.yaml para a API. Documentação sobre como preparar o ambiente, instalar dependências e rodar o projeto.
-- **Nível 7 - Cloud**: Pipeline de deploy da aplicação em estrutura de Cloud (AWS ou Google).
+- **Level 1 - Validation**: API that receives ticket data and validates the fields. Returns error messages if there are invalid fields or returns the data in JSON format if all fields are valid.
+- **Level 2 - Persistence**: Storage of tickets and employees in a PostgreSQL database. Includes routes for creating, editing, deleting, and querying tickets.
+- **Level 3 - Testing**: Unit tests for each operation using Jest or Vitest.
+- **Level 4 - Authentication**: Authentication system with JWT for all routes.
+- **Level 5 - Permission Management**: Permission management system for different roles (Admin and Attendant). Admin has permission to delete tickets.
+- **Level 6 - Infrastructure**: Dockerfile and docker-compose.yaml for the API. Documentation on how to set up the environment, install dependencies, and run the project.
+- **Level 7 - Cloud**: Pipeline for deploying the application in a Cloud infrastructure (AWS or Google).
 
 ### Frontend
 
-- **Nível 1 - Cadastro**: Interface para cadastro de tickets com validação de campos.
-- **Nível 2 - Conectando na API**: Integração do frontend com a API para cadastro de tickets.
-- **Nível 3 - Listando**: Sistema de listagem de tickets com opções de edição e exclusão, dependendo do cargo do usuário.
-- **Nível 4 - Autenticação**: Sistema de login e senha para controle de acesso e permissões autenticadas.
-- **Nível 5 - Testes**: Testes para a aplicação frontend.
+- **Level 1 - Registration**: Interface for ticket registration with field validation.
+- **Level 2 - API Integration**: Integration of the frontend with the API for ticket registration.
+- **Level 3 - Listing**: Ticket listing system with options to edit and delete, depending on the user's role.
+- **Level 4 - Authentication**: Login system for access control and authenticated permissions.
+- **Level 5 - Testing**: Tests for the frontend application.
 
-# :wrench: Tecnologias utilizadas
-## Backend
-* cxpress
-* class validator
-* class transformer
-* jwt decode
+## :wrench: Technologies Used
+### Backend
+* Express
+* Class Validator
+* Class Transformer
+* JWT Decode
 * Prisma
 * PostgreSQL
-* bcrypt
-* jwt-service
-* moment
-* reflect-metadata
+* Bcrypt
+* JWT-Service
+* Moment
+* Reflect-Metadata
 
-## Frontend
+### Frontend
 * Vue
 * Pinia
 * Tailwind CSS
-* shadcn-vue
+* Shadcn-vue
 
-## Infraestrutura
+### Infrastructure
 * Docker
 
-## :rocket: Executando o Projeto
-Pré-requisitos: npm / yarn e Docker instalados
+## :rocket: Running the Project
+Prerequisites: npm / yarn and Docker installed
 
 ```bash
-# clonar o repositório
+# clone the repository
 git clone https://github.com/luizgustavoou/avaliacao-candidatos.git
 
-# navegar até o diretório do projeto
+# navigate to the project directory
 cd avaliacao-candidatos
 
-# instalar dependências do backend
+# install backend dependencies
 cd backend/
 
 npm i
 
 cd ../
 
-# instalar dependências do frontend
+# install frontend dependencies
 cd frontend/
 
 npm i
 
 cd ../
 
-# executar a aplicação
+# run the application
 docker compose up -d
 ```
 
-## :soon: Implementações Futuras
+## :soon: Future Implementations
 
-## :dart: Status do Projeto
-Concluído
+## :dart: Project Status
+Completed
 
-## Autor
+## Author
 <a href="https://github.com/luizgustavoou">Luiz Gustavo de Oliveira Umbelino</a><br>
